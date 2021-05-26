@@ -51,4 +51,4 @@ User Story
 
 ## ⚓ ERD
 
-![Image of user flow diagram](brb-erd.jpg)
+![Image of user flow diagram](/readme_images/brb-erd.jpg)
