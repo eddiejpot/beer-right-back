@@ -19,7 +19,7 @@ User Story
 
 - As a **beer enthusiast**, I want to **claim my beers**, so I can meet my friend over a drink.
 
-## 📏 App rules
+## ✋ App rules
 *nice-to-have (n-t-h)*
 
 - A user can only owe a maximum of 5 beers (ability to set this is n-t-h)
@@ -52,6 +52,6 @@ User Story
 
 ![Image of user flow diagram](/readme_images/brb-user-flow-diagram.jpg)
 
-## ⚓ ERD
+## 🧠 ERD
 
 ![Image of user flow diagram](/readme_images/brb-erd.jpg)
