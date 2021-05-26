@@ -20,13 +20,13 @@ User Story
 - As a **beer enthusiast**, I want to **claim my beers**, so I can meet my friend over a drink.
 
 ## 📏 App rules
-*nice-to-have (n-t-h)
+*nice-to-have (n-t-h)*
 
 - A user can only owe a maximum of 5 beers (ability to set this is n-t-h)
 - A beer expires 1 month from the day it is given (ability to set this is n-t-h)
 
 ## 🌈 Features
-*nice-to-have (n-t-h)
+*nice-to-have (n-t-h)*
 
 **Registration**
 
