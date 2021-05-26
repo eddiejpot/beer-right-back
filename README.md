@@ -19,6 +19,12 @@ User Story
 
 - As a **beer enthusiast**, I want to **claim my beers**, so I can meet my friend over a drink.
 
+## 📏 App rules
+*nice-to-have (n-t-h)
+
+- A user can only owe a maximum of 5 beers (ability to set this is n-t-h)
+- A beer expires 1 month from the day it is given (ability to set this is n-t-h)
+
 ## 🌈 Features
 *nice-to-have (n-t-h)
 
@@ -37,14 +43,10 @@ User Story
 
 1. Able to owe a friend a beer (mvp)
 2. Able to claim a beer (mvp)
-3. Able to poke a friend to remind them that they owe you a beer (n-t-h)
-4. Able to schedule a time to meet (n-t-h)
-5. Group outings (n-t-h)
-
-## 📏 App rules
-
-- A user can only owe a maximum of 5 pints (ability to set this is n-t-h)
-- Expiry is 1 month (ability to set this is n-t-h)
+3. Beers that expire within the week will be highlighted (n-t-h)
+4. Able to poke a friend to remind them that they owe you a beer (n-t-h)
+5. Able to schedule a time to meet (n-t-h)
+6. Group outings (n-t-h)
 
 ## 📱 User Flow Diagram
 
