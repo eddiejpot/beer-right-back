@@ -20,23 +20,23 @@ User Story
 - As a **beer enthusiast**, I want to **claim my beers**, so I can meet my friend over a drink.
 
 ## 🌈 Features
+*nice-to-have (n-t-h)
 
-\*nice-to-have (n-t-h)
 **Registration**
 
-1. User signup
-2. User login
+1. User signup (mvp)
+2. User login (mvp)
 3. User edit profile (n-t-h)
 
 **Social Network**
 
-1.  Able to add friends
-2.  Able to delete friends
+1.  Able to search for friends (mvp)
+2.  Able to add & delete friends (mvp)
 
 **Beer Transfer**
 
-1. Able to owe a friend a beer
-2. Able to claim a beer
+1. Able to owe a friend a beer (mvp)
+2. Able to claim a beer (mvp)
 3. Able to poke a friend to remind them that they owe you a beer (n-t-h)
 4. Able to schedule a time to meet (n-t-h)
 
