@@ -39,6 +39,7 @@ User Story
 2. Able to claim a beer (mvp)
 3. Able to poke a friend to remind them that they owe you a beer (n-t-h)
 4. Able to schedule a time to meet (n-t-h)
+5. Group outings (n-t-h)
 
 ## 📏 App rules
 
