@@ -49,7 +49,7 @@ User Story
 6. Group outings (n-t-h)
 
 ## 📱 User Flow Diagram
-
+**Diagram is currently missing a landing page which explains the product in a visually appealing way**
 ![Image of user flow diagram](/readme_images/brb-user-flow-diagram.jpg)
 
 ## 🧠 ERD
