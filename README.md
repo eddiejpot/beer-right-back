@@ -38,8 +38,8 @@ User Story
 
 **MVP**
 
-1. User signup (mvp)
-2. User login (mvp)
+1. User signup
+2. User login
 
 **NICE TO HAVE**
 
