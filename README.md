@@ -17,40 +17,71 @@ What is the user goal ?
 
 User Story
 
-- As a **beer enthusiast**, I want to **claim my beers**, so I can meet my friend over a drink.
+- As a **beer enthusiast**, I want to **redeem my beers**, so I can meet my friend over a drink.
 
-## ✋ App rules
-*nice-to-have (n-t-h)*
+## ✋ How the app works
 
-- A user can only owe a maximum of 5 beers (ability to set this is n-t-h)
-- A beer expires 1 month from the day it is given (ability to set this is n-t-h)
+TO BUY/OWE A BEER
+
+- Once you buy a beer for a friend. A ticket/recipe will be issued.
+- The ticket/recipe is valid for a period of one month. The recepient must redeem it before it expires
+- A user is only allowed to owe a maximum of 5 beers (this is called their 'beer wallet')
+- A beer expires 1 month from the day it is given (ability to set this is nice to have)
+
+TO REDEEM A BEER
+
+- Simply click the beer time icon and choose redeem. A list of the people who owe you beers will be generated. Pick who to redeem from.
 
 ## 🌈 Features
-*nice-to-have (n-t-h)*
 
 **Registration**
 
+MVP
+
 1. User signup (mvp)
 2. User login (mvp)
-3. User edit profile (n-t-h)
+
+NICE TO HAVE
+
+1. User edit profile (n-t-h)
 
 **Social Network**
 
-1.  Able to search for friends (mvp)
-2.  Able to add & delete friends (mvp)
+MVP
+
+1. Will populate with own data
+
+NICE TO HAVE
+
+1.  Able to search for friends
+2.  Able to add & delete friends
 
 **Beer Transfer**
 
-1. Able to owe a friend a beer (mvp)
-2. Able to claim a beer (mvp)
-3. Beers that expire within the week will be highlighted (n-t-h)
-4. Able to poke a friend to remind them that they owe you a beer (n-t-h)
-5. Able to schedule a time to meet (n-t-h)
-6. Group outings (n-t-h)
+MVP
 
-## 📱 User Flow Diagram
+1. Able to owe a friend a beer
+2. Able to redeem a beer
+3. Not able to owe more than 5 beers
 
-![Image of user flow diagram](/readme_images/brb-user-flow-diagram.jpg)
+NICE TO HAVE
+
+1. Comment section in each beer ticket
+2. Beers that expire within the week will be highlighted
+3. Able to poke a friend to remind them that they owe you a beer
+4. Takes 2 to authenticate that a beer has been redeemed
+5. Able to schedule a time to meet
+6. Group outings
+
+## 📱 User Flow (User Goals)
+
+Attached below is the user flow of 2 of the most crucial actions a user will perform
+
+![Image of user flow diagram](/readme_images/brb-user-flow.jpg)
+
+## 📱 User Flow Diagram (MVP)
+
+![Image of user flow diagram](/readme_images/brb-user-flow-diagram-mvp.jpg)
 
 ## 🧠 ERD
 
