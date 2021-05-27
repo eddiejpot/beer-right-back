@@ -47,6 +47,7 @@ NICE TO HAVE
 
 **Social Network**
 
+<<<<<<< HEAD
 MVP
 
 1. Will populate with own data
@@ -55,6 +56,11 @@ NICE TO HAVE
 
 1.  Able to search for friends
 2.  Able to add & delete friends
+=======
+1.  Able to search for friends (mvp) - if cannot search for friends, QR code?
+2.  Able to add & delete friends (mvp)
+3.  Able to make a favourite list of friends (mvp)
+>>>>>>> e131758379dbe2e73c3accc356a6244847cb64e4
 
 **Beer Transfer**
 
@@ -79,7 +85,13 @@ Attached below is the user flow of 2 of the most crucial actions a user will per
 
 ![Image of user flow diagram](/readme_images/brb-user-flow.jpg)
 
+<<<<<<< HEAD
 ## 📱 User Flow Diagram (MVP)
+=======
+## 📱 User Flow Diagram 
+
+***Diagram is currently missing a landing page which explains the product in a visually appealing way**
+>>>>>>> e131758379dbe2e73c3accc356a6244847cb64e4
 
 ![Image of user flow diagram](/readme_images/brb-user-flow-diagram-mvp.jpg)
 
