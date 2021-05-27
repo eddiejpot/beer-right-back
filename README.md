@@ -36,7 +36,7 @@ User Story
 
 **Social Network**
 
-1.  Able to search for friends (mvp)
+1.  Able to search for friends (mvp) - if cannot search for friends, QR code?
 2.  Able to add & delete friends (mvp)
 
 **Beer Transfer**
