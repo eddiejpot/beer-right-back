@@ -34,38 +34,38 @@ TO REDEEM A BEER
 
 ## 🌈 Features
 
-**Registration**
+#### Registration
 
-MVP
+**MVP**
 
 1. User signup (mvp)
 2. User login (mvp)
 
-NICE TO HAVE
+**NICE TO HAVE**
 
 1. User edit profile (n-t-h)
 
-**Social Network**
+#### Social Network
 
-MVP
+**MVP**
 
 1. Will populate with own data
 
-NICE TO HAVE
+**NICE TO HAVE**
 
 1. Able to search for friends
 2. Able to add & delete friends
 3. Able to make a favourite list of friends
 
-**Beer Transfer**
+#### Beer Transfer
 
-MVP
+**MVP**
 
 1. Able to owe a friend a beer
 2. Able to redeem a beer
 3. Not able to owe more than 5 beers
 
-NICE TO HAVE
+**NICE TO HAVE**
 
 1. Comment section in each beer ticket
 2. Beers that expire within the week will be highlighted
