@@ -48,8 +48,10 @@ User Story
 5. Able to schedule a time to meet (n-t-h)
 6. Group outings (n-t-h)
 
-## 📱 User Flow Diagram
-**Diagram is currently missing a landing page which explains the product in a visually appealing way**
+## 📱 User Flow Diagram 
+
+***Diagram is currently missing a landing page which explains the product in a visually appealing way**
+
 ![Image of user flow diagram](/readme_images/brb-user-flow-diagram.jpg)
 
 ## 🧠 ERD
