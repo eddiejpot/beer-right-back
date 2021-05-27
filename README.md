@@ -43,7 +43,7 @@ User Story
 
 **NICE TO HAVE**
 
-1. User edit profile (n-t-h)
+1. User edit profile
 
 ### Social Network
 
