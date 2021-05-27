@@ -38,6 +38,7 @@ User Story
 
 1.  Able to search for friends (mvp) - if cannot search for friends, QR code?
 2.  Able to add & delete friends (mvp)
+3.  Able to make a favourite list of friends (mvp)
 
 **Beer Transfer**
 
