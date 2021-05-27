@@ -21,51 +21,51 @@ User Story
 
 ## ✋ How the app works
 
-TO BUY/OWE A BEER
+**TO BUY/OWE A BEER**
 
 - Once you buy a beer for a friend. A ticket/recipe will be issued.
 - The ticket/recipe is valid for a period of one month. The recepient must redeem it before it expires
 - A user is only allowed to owe a maximum of 5 beers (this is called their 'beer wallet')
 - A beer expires 1 month from the day it is given (ability to set this is nice to have)
 
-TO REDEEM A BEER
+**TO REDEEM A BEER**
 
 - Simply click the beer time icon and choose redeem. A list of the people who owe you beers will be generated. Pick who to redeem from.
 
 ## 🌈 Features
 
-**Registration**
+### Registration
 
-MVP
+**MVP**
 
-1. User signup (mvp)
-2. User login (mvp)
+1. User signup
+2. User login
 
-NICE TO HAVE
+**NICE TO HAVE**
 
-1. User edit profile (n-t-h)
+1. User edit profile
 
-**Social Network**
+### Social Network
 
-MVP
+**MVP**
 
 1. Will populate with own data
 
-NICE TO HAVE
+**NICE TO HAVE**
 
 1. Able to search for friends
 2. Able to add & delete friends
 3. Able to make a favourite list of friends
 
-**Beer Transfer**
+### Beer Transfer
 
-MVP
+**MVP**
 
 1. Able to owe a friend a beer
 2. Able to redeem a beer
 3. Not able to owe more than 5 beers
 
-NICE TO HAVE
+**NICE TO HAVE**
 
 1. Comment section in each beer ticket
 2. Beers that expire within the week will be highlighted
