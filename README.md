@@ -86,4 +86,4 @@ Attached below is the user flow of 2 of the most crucial actions a user will per
 
 ## 🧠 ERD
 
-![Image of user flow diagram](/readme_images/brb-erd.jpg)
+![Image of user flow diagram](/readme_images/brb-erd.jpeg)
