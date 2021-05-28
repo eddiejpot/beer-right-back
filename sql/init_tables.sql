@@ -1,28 +1,29 @@
 /*CREATE TABLES*/
 
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   username TEXT,
   email TEXT,
   password TEXT,
   -- profile_picture IMAGE,
-  beer_wallet INTEGER
+  available_beer_tickets INTEGER
 );
 
-CREATE TABLE IF NOT EXISTS friends (
+CREATE TABLE friends (
   id SERIAL PRIMARY KEY,
   user_id INTEGER,
   friend_id TEXT,
-  is_favourite BOOLEAN
+  is_user_favourite BOOLEAN
 );
 
-CREATE TYPE IF NOT EXISTS status AS ENUM ('available', 'redeemed', 'void');
-CREATE TABLE IF NOT EXISTS beer_exchange (
+CREATE TYPE status AS ENUM ('available', 'redeemed', 'void');
+CREATE TABLE beer_ticket (
   id SERIAL PRIMARY KEY,
   giver_id INTEGER,
   receiver_id INTEGER,
   beer_status status,
-  beer_expiry_date DATE
+  beer_expiry_date DATE,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 
