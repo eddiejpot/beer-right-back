@@ -1,0 +1,27 @@
+<%- include ('partials/header') %> 
+<%- include ('partials/nav') %> 
+
+<div class="container-fluid my-container">
+
+  <section class = "row ">
+    <div>
+      <h1>Friends</h1>
+    </div>
+  </section>
+
+  <section class = "row my-row">
+      <h4>Squad</h4>
+        <section class = "row row-cols-3">
+          <% userFriends.forEach((e,i) => { %>
+            <div class="col my-col my-col-owe-icon d-flex align-items-center justify-content-center">
+                <p><%=e.username %></p>
+            </div>
+          <% }); %>
+        </section>
+  </section>
+
+    <section>
+      <a href="">add more friends</a>
+    </section>
+</div>
+<%- include ('partials/footer') %> 

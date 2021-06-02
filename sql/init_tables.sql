@@ -12,17 +12,18 @@ CREATE TABLE users (
 CREATE TABLE friends (
   id SERIAL PRIMARY KEY,
   user_id INTEGER,
-  friend_id TEXT,
+  friend_id INTEGER,
   is_user_favourite BOOLEAN
 );
 
 CREATE TYPE status AS ENUM ('available', 'redeemed', 'void');
-CREATE TABLE beer_ticket (
+CREATE TABLE beer_tickets (
   id SERIAL PRIMARY KEY,
   giver_id INTEGER,
   receiver_id INTEGER,
   beer_status status,
   beer_expiry_date DATE,
+  beer_redeemed_date DATE,
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 

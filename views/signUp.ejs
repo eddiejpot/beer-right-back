@@ -1,0 +1,46 @@
+<%- include ('partials/header') %> 
+
+
+<div class="container-fluid my-container">
+
+
+  <section class = "row">
+    <div>
+      <h1 class="">Create an account </h1>
+    </div>
+  </section>
+
+  <section class = "row d-flex flex-column ">
+    <div class="col text-center">
+      <img src="https://www.svgrepo.com/show/20/user.svg" alt="" class = "signup-logo">
+    </div>
+    <div class="col">
+
+      <form action="/signup" method="POST" >
+
+        <div class="mb-3 mt-3">
+          <input type="text" class="form-control" id="username" name='username' placeholder="username here">
+        </div>
+
+        <div class="mb-3 mt-3">
+          <input type="email" class="form-control" id="email" name='email' placeholder="name@example.com">
+        </div>
+        <div class="mb-3">
+          <input type="password" class="form-control" id="password" name='password' placeholder="password" >
+        </div>
+        <button type="submit" class="btn btn-primary">Let's go!</button>
+      </form>
+    </div>
+  </section>
+
+  <section class = "row">
+    <div>
+      <a href="/login">I already have an account</a>
+    </div>
+  </section>
+
+</div>
+
+</div>  
+
+<%- include ('partials/footer') %> 

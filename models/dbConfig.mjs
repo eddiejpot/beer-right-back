@@ -19,7 +19,7 @@ if (process.env.ENV === 'PRODUCTION') {
     // set DB_PASSWORD as an environment variable for security.
     password: process.env.DB_PASSWORD,
     host: 'localhost',
-    database: 'brb-app',
+    database: 'brb_app',
     port: 5432,
   };
 } else {
@@ -27,13 +27,12 @@ if (process.env.ENV === 'PRODUCTION') {
   pgConnectionConfigs = {
     user: 'eddiejpot',
     host: 'localhost',
-    database: 'brb-app',
+    database: 'brb_app',
     port: 5432, // Postgres server always runs on this port by default
   };
 }
 
 const pool = new Pool(pgConnectionConfigs);
-
 
 /* ================================================= */
 /* =============== EXPORT MODULES ================= */

@@ -1,11 +1,9 @@
 /* ================================================= */
 /* =============== IMPORT MODULES ================= */
 /* ================================================ */
-import pool from './dbConfig.js';
-
+import pool from './dbConfig.mjs';
 
 // DB Query
-
 const poolQueries = (sqlQuery, values, callback) => {
   pool.query(sqlQuery, values, (err, results) => {
     if (err) {

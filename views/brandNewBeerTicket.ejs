@@ -1,0 +1,23 @@
+<%- include ('partials/header') %> 
+<%- include ('partials/nav') %> 
+
+<div class="container-fluid my-container beer-ticket-container d-flex flex-column align-items-center justify-content-center">
+  
+  <section class = "row my-row my-row-beer-ticket">
+    <h2>BEER TICKET: <%= beerTicketId %></h2>
+    <div>
+      <p>Giver: <%= giverName %></p>
+      <p>Reciever: <%= receiverName %></p>
+      <p>Ticket Details:</p>
+      <p>Status: <%= beerTicketData.beer_status %></p>
+      <p>Expiry (one month from today): <%= beerTicketData.beer_expiry_date %></p>
+    </div>
+  </section>
+
+  <section class = "row my-row">
+    <a href="/" >Back to beer exchange</a>
+  </section>
+
+</div>
+
+<%- include ('partials/footer') %> 

@@ -1,0 +1,56 @@
+<%- include ('partials/header') %> 
+<%- include ('partials/nav') %> 
+
+
+<div class="container-fluid my-container">
+  <section class = "row  h-1">
+    <div>
+      <h6 class="">Welcome back <%= userName %> ! </h6>
+    </div>
+  </section>
+
+  <section class = "row my-row h-25">
+    <h2>Beer Wallet 👛</h2>
+    <div>
+      <p><small>Available beers (<%= beerWallet %>)</small></p>
+      <!-- If no beers display this -->
+      <%if (beerWallet === 0) { %>
+        <div class="alert alert-danger my-alert" role="alert">
+          No more beers. Start clearing your beer debts!
+        </div>
+      <% } else{ %>  
+        <% for (let i = 0; i < beerWallet;i +=1 ) { %>
+          <span class = "beer-wallet-icon">🍺</span>
+        <% }; %>
+      <% } %>
+    </div>
+  </section>
+
+  <section class = "row my-row h-50">
+
+    <h2>The Beer Exchange 📈</h2>
+
+      <p>Who owes you</p>
+      <section class = "row row-cols-3">
+        <% whoOwesUserArr.forEach((e,i) => { %>
+          <div class="col my-col my-col-owe-icon d-flex align-items-center justify-content-center">
+              <p><%=e.username %></p>
+          </div>
+        <% }); %>
+      </section>
+
+      <p>Who you owe</p>
+      <section class = "row row-cols-3">
+        <% userOwesWhoArr.forEach((e,i) => { %>
+          <div class="col my-col my-col-owe-icon d-flex align-items-center justify-content-center">
+            <p><%=e.username %></p>
+          </div>
+        <% }); %>
+      </section>
+      <a href="/transactions/all">My Transactions</a>
+
+  </section>
+
+</div>  
+
+<%- include ('partials/footer') %> 

@@ -1,0 +1,69 @@
+<%- include ('partials/header') %> 
+<%- include ('partials/nav') %> 
+
+<div class="container-fluid my-container buy-beer-container">
+
+  <!-- If no beers display this Modal-->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog my-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">❌🍺 <small>No more beers.</small></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body my-model-body">
+          <h4>Start clearing your beer debts!</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class = "row ">
+    <div>
+      <h1>Buying someone a drink?</h1>
+    </div>
+  </section>
+
+    <section class = "row ">
+    <div class = 'instructions'>
+      <p><span>Guidelines</span><p>
+        <ul>
+          <li><span>A beer owed is only valid for a period of one month.</span></li>
+          <li><span>Each user can only owe 5 beers (clear your beer debts people!)</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class = "row my-row my-row-beer-form">
+
+    <form class="form-inline" action="/beer/buy" method="POST">
+      <label class="my-1 mr-2" for="friendId">Who is the lucky fella</label>
+      <br>
+
+      <div class = 'row w-100'>
+
+        <div class = 'col-10'>
+          <select class="custom-select my-1 mr-sm-2 beer-form-dropdown" id="friendId" name="friendId">
+            <option selected>Choose...</option>
+            <% userFriends.forEach((e) => { %>
+              <option value=<%= e.id %>> <%= e.username %> </option>
+            <% }); %>
+          </select>
+        </div>
+
+        <div class = 'col-2'>
+          <!-- If no beers display Modal-->
+
+            <%if (beerWallet === 0) { %>
+              <button type="button" class="btn btn-primary my-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Send them 🍺</button>  
+            <% } else { %>
+              <button type="submit" class="btn btn-primary my-1">Send them 🍺</button>   
+            <% } %>
+       
+        </div>
+      </div>
+    </form>
+
+  </section>
+
+</div>
+<%- include ('partials/footer') %> 

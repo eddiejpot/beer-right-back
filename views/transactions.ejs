@@ -1,0 +1,81 @@
+<%- include ('partials/header') %> 
+<%- include ('partials/nav') %> 
+
+
+<div class="container-fluid my-container buy-beer-container">
+    <section class = "row  h-1">
+    <div>
+      <h1>My Transactions</h1>
+    </div>
+  </section>
+
+  <nav aria-label="...">
+    <ul class="pagination pagination-lg">
+      <li class="page-item">
+        <a class="page-link" href="/transactions/all" tabindex="-1">ALL</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="/transactions/in">IN</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="/transactions/out">OUT</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="/transactions/done">DONE</a>
+      </li>
+    </ul>
+  </nav>
+    <div>
+      <h4><%= pageTitle %></h4>
+
+      <% beersData.forEach((e,i) => { %>
+
+
+        <% if (sortType === 'all') { %>
+          <section class = "row my-row">
+            <div class="col">
+              <p>Name: <%= e.username %> </p>
+            </div>
+            <div class="col">
+              <p>Expiry: <%= e.beer_expiry_date %></p>
+            </div>
+            <div class="col">
+              <p><%=e.type %> </p>
+            </div>
+          </section>
+        <% } %>
+
+        <% if (sortType === 'in' || sortType === 'out') { %>
+          <section class = "row my-row">
+            <div class="col">
+              <p>Name: <%= e.username %> </p>
+            </div>
+            <div class="col">
+              <p>Expiry: <%= e.beer_expiry_date %></p>
+            </div>
+            <div class="col">
+              <p><%=e.type %> </p>
+            </div>
+          </section>
+        <% } %>
+
+        <% if (sortType === 'done') { %>
+          <section class = "row my-row">
+            <div class="col">
+              <p>Name: <%= e.username %> </p>
+            </div>
+            <div class="col">
+              <p>Redeemed: <%= e.beer_redeemed_date %></p>
+            </div>
+            <div class="col">
+              <p><%=e.type %> </p>
+            </div>
+          </section>
+        <% } %>
+
+      <% }); %>
+    </div>
+
+</div>
+
+  <%- include ('partials/footer') %> 

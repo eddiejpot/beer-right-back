@@ -1,0 +1,22 @@
+<%- include ('partials/header') %> 
+<%- include ('partials/nav') %> 
+
+<div class="container-fluid my-container beer-ticket-container d-flex flex-column align-items-center justify-content-center">
+
+  <section class = "row ">
+  <h1>Redeemed!</h1>
+  </section>
+
+  <section class = "row my-row my-row-beer-ticket pattern-dots-sm">
+    <h2>BEER TICKET: <%= beerTicketId %></h2>
+    <div>
+      <p>Giver: <%= giverName %></p>
+      <p>Reciever: <%= receiverName %></p>
+      <p>Status: <%= beerTicketData.beer_status %></p>
+      <p>Redeemed on: <%= beerTicketData.beer_redeemed_date %></p>
+    </div>
+  </section>
+
+
+</div>
+  <%- include ('partials/footer') %> 

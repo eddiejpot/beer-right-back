@@ -9,14 +9,11 @@ import methodOverride from 'method-override'; // npm install method-override
 // cookies
 import cookieParser from 'cookie-parser'; // npm install cookie-parser
 
-// others
-import moment from 'moment'; // npm install moment
-
 /* ============================================================================ */
 /* =========================================================== IMPORT ROUTERS = */
 /* ============================================================================ */
-import indexRouter from './routes/indexRouter.js';
-
+import indexRouter from './routes/indexRouter.mjs';
+import authRouter from './routes/authRouter.mjs';
 
 /* ============================================================================ */
 /* ============================================================== INIT SERVER = */
@@ -45,11 +42,11 @@ app.use(express.static('public'));
 /* ============================================================================ */
 app.use(cookieParser());
 
-
 /* ================================================================ MAIN ROUTES */
+app.all('*', authRouter);
 app.use('/', indexRouter);
 
 /* ============================================================================ */
 /* ===================================================================== LISTEN */
 /* ============================================================================ */
-app.listen(PORT, ()=> console.log(`LISTENING ON PORT ${PORT}`));
+app.listen(PORT, () => console.log(`LISTENING ON PORT ${PORT}`));

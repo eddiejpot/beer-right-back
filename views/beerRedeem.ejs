@@ -1,0 +1,31 @@
+<%- include ('partials/header') %> 
+<%- include ('partials/nav') %> 
+
+<div class="container-fluid my-container redeem-beer-container">
+
+  <section class = "row  h-1">
+    <h1>Friends who owe you a beer</h1>
+  </section>
+  
+  <div class="list-group">
+    <% peopleWhoOweUserArr.forEach((e) => { %>
+      <div class = "beer-redeem-list">
+        <a href="/beer/ticket/<%= e.beer_ticket_id %>" class="list-group-item list-group-item-action">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Name: <%= e.username %></h5>
+            <small class="text-muted">Ticket No: <%= e.beer_ticket_id %></small>
+          </div>
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"></h5>
+            <small class="text-muted">Expires: <%= e.beer_expiry_date_edit %></small>
+          </div>
+          <p class="mb-1">Click to redeem</p>
+          <small class="text-muted"></small>
+        </a>
+      </div>
+    <% }); %>
+
+  </div>
+
+</div>
+  <%- include ('partials/footer') %> 
