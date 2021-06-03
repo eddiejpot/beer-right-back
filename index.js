@@ -24,6 +24,7 @@ const app = express();
 // activate port
 let PORT;
 if (process.argv[2]) {
+  console.log('this ran');
   PORT = process.argv[2];
 } else {
   PORT = 3004;
@@ -42,6 +43,9 @@ app.use(express.urlencoded({ extended: false }));
 app.set('view engine', 'ejs');
 // allow access to public directory
 app.use(express.static('public'));
+// allow express to serve files from the uploads folder. note this is not production safe
+// - the files are usaully stored on a sepearate server
+app.use(express.static('uploads'));
 
 /* ============================================================================ */
 /* ============================================================= COOKIES SET UP */

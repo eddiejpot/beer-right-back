@@ -39,9 +39,9 @@
       <label class="my-1 mr-2" for="friendId">Who is the lucky fella</label>
       <br>
 
-      <div class = 'row w-100'>
+      <div class = 'row'>
 
-        <div class = 'col-10'>
+        <div class = 'col-8'>
           <select class="custom-select my-1 mr-sm-2 beer-form-dropdown" id="friendId" name="friendId">
             <option selected>Choose...</option>
             <% userFriends.forEach((e) => { %>
@@ -50,13 +50,13 @@
           </select>
         </div>
 
-        <div class = 'col-2'>
+        <div class = 'col-4'>
           <!-- If no beers display Modal-->
 
             <%if (beerWallet === 0) { %>
-              <button type="button" class="btn btn-primary my-1" data-bs-toggle="modal" data-bs-target="#exampleModal">Send them 🍺</button>  
+              <button type="button" class="btn btn-primary my-1 btn-buy-beer" data-bs-toggle="modal" data-bs-target="#exampleModal">Send them 🍺</button>  
             <% } else { %>
-              <button type="submit" class="btn btn-primary my-1">Send them 🍺</button>   
+              <button type="submit" class="btn btn-primary my-1 btn-buy-beer">Send them 🍺</button>   
             <% } %>
        
         </div>

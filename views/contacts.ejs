@@ -1,7 +1,7 @@
 <%- include ('partials/header') %> 
 <%- include ('partials/nav') %> 
 
-<div class="container-fluid my-container">
+<div class="container-fluid my-container buy-beer-container">
 
   <section class = "row ">
     <div>
@@ -9,11 +9,15 @@
     </div>
   </section>
 
-  <section class = "row my-row">
-      <h4>Squad</h4>
-        <section class = "row row-cols-3">
+  <section class = "row my-row my-row-friends">
+    <div class = 'friends-header'>
+      <h4>The Squad 🙌</h4>
+      <p><small>Squad count: <%= userFriends.length%></small></p>
+    </div>
+        <section class = "row row-cols-3 squad">
           <% userFriends.forEach((e,i) => { %>
-            <div class="col my-col my-col-owe-icon d-flex align-items-center justify-content-center">
+            <div class="col my-col my-col-owe-icon">
+                <img src="/<%= e.profile_picture_hashed_name %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-medium">
                 <p><%=e.username %></p>
             </div>
           <% }); %>

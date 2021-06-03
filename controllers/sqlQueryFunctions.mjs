@@ -65,11 +65,11 @@ export const getUserOwesWhoData = async (currentUserId) => {
 export const getUsersAndBeerTicketsData = async (currentUserId) => {
   const beersOwedObjArr = { beersOwedToUser: [], beersUserOwes: [] };
   // Promise to create join table for data of those who owe user a beer
-  const promise1 = await pool.query(`SELECT users.id, users.username, beer_tickets.beer_status, beer_tickets.beer_expiry_date, beer_tickets.id AS beer_ticket_id FROM users INNER JOIN beer_tickets ON users.id = beer_tickets.giver_id WHERE beer_tickets.receiver_id = ${currentUserId} AND beer_tickets.beer_status = 'available'`);
+  const promise1 = await pool.query(`SELECT users.id, users.username, users.profile_picture_hashed_name, profile_picture_alt_text, beer_tickets.beer_status, beer_tickets.beer_expiry_date, beer_tickets.id AS beer_ticket_id FROM users INNER JOIN beer_tickets ON users.id = beer_tickets.giver_id WHERE beer_tickets.receiver_id = ${currentUserId} AND beer_tickets.beer_status = 'available'`);
   // add data to objArr
   beersOwedObjArr.beersOwedToUser = promise1.rows;
   // Promise to create join table for data of those that the user owes a beer to
-  const promise2 = await pool.query(`SELECT users.id, users.username, beer_tickets.beer_status, beer_tickets.beer_expiry_date, beer_tickets.id AS beer_ticket_id FROM users INNER JOIN beer_tickets ON users.id = beer_tickets.receiver_id WHERE beer_tickets.giver_id = ${currentUserId} AND beer_tickets.beer_status = 'available'`);
+  const promise2 = await pool.query(`SELECT users.id, users.username, profile_picture_hashed_name, profile_picture_alt_text, beer_tickets.beer_status, beer_tickets.beer_expiry_date, beer_tickets.id AS beer_ticket_id FROM users INNER JOIN beer_tickets ON users.id = beer_tickets.receiver_id WHERE beer_tickets.giver_id = ${currentUserId} AND beer_tickets.beer_status = 'available'`);
   // add data to objAarr
   beersOwedObjArr.beersUserOwes = promise2.rows;
   // return objArr
@@ -81,11 +81,11 @@ export const getUsersAndBeerTicketsData = async (currentUserId) => {
 export const getUsersAndBeerTicketsRedeemedData = async (currentUserId) => {
   const beersOwedObjArr = { beersOwedToUser: [], beersUserOwes: [] };
   // Promise to create join table for data of those who owe user a beer
-  const promise1 = await pool.query(`SELECT users.id, users.username, beer_tickets.beer_status, beer_tickets.beer_redeemed_date, beer_tickets.id AS beer_ticket_id FROM users INNER JOIN beer_tickets ON users.id = beer_tickets.giver_id WHERE beer_tickets.receiver_id = ${currentUserId} AND beer_tickets.beer_status = 'redeemed'`);
+  const promise1 = await pool.query(`SELECT users.id, users.username, profile_picture_hashed_name, profile_picture_alt_text, beer_tickets.beer_status, beer_tickets.beer_redeemed_date, beer_tickets.id AS beer_ticket_id FROM users INNER JOIN beer_tickets ON users.id = beer_tickets.giver_id WHERE beer_tickets.receiver_id = ${currentUserId} AND beer_tickets.beer_status = 'redeemed'`);
   // add data to objArr
   beersOwedObjArr.beersOwedToUser = promise1.rows;
   // Promise to create join table for data of those that the user owes a beer to
-  const promise2 = await pool.query(`SELECT users.id, users.username, beer_tickets.beer_status, beer_tickets.beer_redeemed_date, beer_tickets.id AS beer_ticket_id FROM users INNER JOIN beer_tickets ON users.id = beer_tickets.receiver_id WHERE beer_tickets.giver_id = ${currentUserId} AND beer_tickets.beer_status = 'redeemed'`);
+  const promise2 = await pool.query(`SELECT users.id, users.username, profile_picture_hashed_name, profile_picture_alt_text, beer_tickets.beer_status, beer_tickets.beer_redeemed_date, beer_tickets.id AS beer_ticket_id FROM users INNER JOIN beer_tickets ON users.id = beer_tickets.receiver_id WHERE beer_tickets.giver_id = ${currentUserId} AND beer_tickets.beer_status = 'redeemed'`);
   // add data to objAarr
   beersOwedObjArr.beersUserOwes = promise2.rows;
   // return objArr
@@ -95,7 +95,7 @@ export const getUsersAndBeerTicketsRedeemedData = async (currentUserId) => {
 // Helper function to get user friends
 export const getUserFriends = async (currentUserId) => {
   // Promise to create join table for data of those who owe user a beer
-  const promise1 = await pool.query(`SELECT users.id, users.username, friends.friend_id FROM users INNER JOIN friends ON friends.friend_id = users.id WHERE friends.user_id = ${currentUserId}`);
+  const promise1 = await pool.query(`SELECT * FROM users INNER JOIN friends ON friends.friend_id = users.id WHERE friends.user_id = ${currentUserId}`);
   // return arr
   return promise1.rows;
 };

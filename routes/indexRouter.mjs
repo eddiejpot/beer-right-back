@@ -57,5 +57,3 @@ router.get('/beer/ticket/redeem=true/:id', beerTicketRedeemController);
 /* =========================================================== EXPORT ROUTER = */
 /* ============================================================================ */
 export default router;
-
-

@@ -31,6 +31,23 @@ h6 {
   color: rgb(255, 255, 255);
 }
 
+p {
+  margin: 0;
+}
+
+[class*='user-profile-img'] {
+  border-radius: 50%;
+  height: auto;
+  border: solid rgb(255, 239, 196) 2px;
+}
+.user-profile-img-small {
+  width: 3rem;
+}
+
+.user-profile-img-medium {
+  width: 4rem;
+}
+
 /* LOGIN / SIGN UP*/
 .login-beer-logo,
 .signup-logo {
@@ -51,6 +68,8 @@ h6 {
 
 .my-container {
   height: 100%;
+  width: 100%;
+  padding: 1rem;
 }
 
 .nav-bar-custom {
@@ -87,11 +106,10 @@ h6 {
 
 /* BEER TICKET */
 .my-row {
-  border-radius: 0.1rem;
   background-color: rgb(255, 219, 60);
-  box-shadow: 4px 8px 2px 4px rgb(253, 164, 0);
-  padding: 1rem 2rem;
-  margin: 1rem 0 2rem 0;
+  box-shadow: 6px 6px 2px 1px rgb(253 164 0);
+  padding: 1rem 0.2rem;
+  margin: 1rem 0 1.5rem 0;
 }
 
 .pattern-dots-sm {
@@ -109,11 +127,13 @@ p {
 }
 
 .my-col-owe-icon {
-  background-color: rgb(238, 238, 238);
-  width: 6rem;
-  height: 6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   border-radius: 1rem;
-  margin: 0.2rem;
+  font-size: 10px;
+  margin: 0;
+  padding: 0;
 }
 
 .buy-beer-container,
@@ -130,22 +150,29 @@ p {
 }
 
 .my-row-beer-form {
-  height: 20%;
+  padding: 1rem 0 1rem 0;
+  margin: 0;
 }
 
 .beer-form-dropdown {
   width: 100%;
-  height: 50%;
+  height: 60%;
+  margin: 0;
 }
 
 .instructions {
+  letter-spacing: 1px;
   color: rgb(255, 255, 255);
 }
-
 .instructions span {
-  background-color: rgba(255, 79, 79, 0.548);
-  /* margin: 0.5rem; */
   letter-spacing: 1px;
+  color: rgb(255, 255, 255);
+  font-size: small;
+}
+
+.btn-buy-beer {
+  width: 100%;
+  font-size: 16px;
 }
 
 .my-modal {
@@ -163,4 +190,89 @@ p {
   margin-bottom: 1rem;
   background-color: rgb(255, 219, 60);
   box-shadow: 2px 4px 2px 4px rgb(253, 164, 0);
+}
+
+/*FRIENDS PAGE*/
+.my-row-friends {
+  margin: 1rem 0 2rem 0;
+  padding: 2rem 0;
+  height: 60%;
+  background-color: rgb(255, 219, 60);
+  display: flex;
+  flex-direction: column;
+}
+
+.friends-header {
+  margin-left: 1rem;
+  margin-bottom: 2rem;
+}
+
+.squad {
+  margin: 0;
+}
+
+.squad .my-col-owe-icon {
+  margin-bottom: 1rem;
+}
+
+/*TRANSACTIONS PAGE*/
+.transactions-container h1 {
+  font-size: 2.5rem;
+}
+
+.transactions-list {
+  background-color: rgb(255, 219, 60);
+  margin: 0;
+  margin-bottom: 0.2rem;
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.transactions-list-done {
+  background-color: rgb(241, 241, 241);
+  margin: 0;
+  margin-bottom: 0.2rem;
+  width: 100%;
+  height: 6rem;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.transactions-type {
+  padding: 0;
+  height: 100%;
+}
+
+.transactions-in {
+  background-color: greenyellow;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transactions-out {
+  background-color: rgb(255, 130, 130);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transactions-done {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transactions-expiry {
+  font-size: 12px;
 }

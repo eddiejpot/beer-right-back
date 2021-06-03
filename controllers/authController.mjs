@@ -84,11 +84,13 @@ export const loginPostController = (req, res) => {
     const allUsers = await getUsers();
     const allUsersLength = allUsers.length;
 
+    console.log(email);
     // Check if email exists
-    let checkIfCorrectUserEmail = false;
-    const test = await allUsers.forEach((e, i) => {
-      // If email exists...
-      if (e.email === email) {
+    // using for loop over for each because i need to exit the loop once a condition is met
+    for (let i = 0; i < allUsersLength; i += 1) {
+      const userDetail = allUsers[i];
+      // If email exists...;
+      if (userDetail.email === email) {
         console.log('logging in');
 
         // initialise SHA object
@@ -97,33 +99,38 @@ export const loginPostController = (req, res) => {
         shaObj.update(password);
         // get the hashed value as output from the SHA object
         const hashedPassword = shaObj.getHash('HEX');
-        console.log(hashedPassword);
 
         // check password
-        if (e.password !== hashedPassword) {
-          res.status(403).send('sorry wrong password!');
+        if (userDetail.password !== hashedPassword) {
+          // res.status(403).send('sorry wrong password!');
+          res.cookie('loggedIn', false);
+          redirectPath = '/login';
+          break;
         }
 
+        // if password correct
         // send cookies
         // logged in cookie
         res.cookie('loggedIn', true);
         // user id cookie
-        res.cookie('userId', e.id);
+        res.cookie('userId', userDetail.id);
         // userName cookie
-        res.cookie('userName', e.username);
+        res.cookie('userName', userDetail.username);
         // redirect to homepage
         console.log('GOING TO REDIRECT');
         redirectPath = '/';
-        console.log('redirected');
-        checkIfCorrectUserEmail = true;
+        break;
+        // console.log('redirected');
+        // checkIfCorrectUserEmail = true;
       }
       console.log('coming out of check');
       // If email does not exist
-      if (allUsersLength === i + 1 && checkIfCorrectUserEmail === false) {
+      if (allUsersLength === i + 1) {
         res.cookie('loggedIn', false);
         redirectPath = '/login';
+        break;
       }
-    });
+    }
     res.redirect(redirectPath);
   };
   // execute
@@ -146,6 +153,8 @@ export const signUpPostController = (req, res) => {
   const { email } = req.body;
   const { password } = req.body;
   const { username } = req.body;
+  const profilePictureFileName = req.file.filename;
+  const profilePictureAltText = `${username}-${req.file.originalname}`;
 
   // initialise the SHA object
   const shaObj = new jsSHA('SHA-512', 'TEXT', { encoding: 'UTF8' });
@@ -156,8 +165,8 @@ export const signUpPostController = (req, res) => {
 
   // Store new user data into db
   const updateUsersTable = async () => {
-    const dataToInsert = [username, email, hashedPassword, 5];
-    const updateUsersTableQuery = await pool.query('INSERT INTO users (username, email, password, available_beer_tickets) VALUES ($1, $2, $3, $4) RETURNING *', dataToInsert);
+    const dataToInsert = [username, email, hashedPassword, profilePictureFileName, profilePictureAltText, 5];
+    const updateUsersTableQuery = await pool.query('INSERT INTO users (username, email, password, profile_picture_hashed_name, profile_picture_alt_text, available_beer_tickets) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', dataToInsert);
     console.log(`Success in adding user! ${updateUsersTableQuery.rows}`);
 
     const userId = updateUsersTableQuery.rows[0].id;

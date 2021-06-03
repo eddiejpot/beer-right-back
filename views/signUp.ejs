@@ -16,7 +16,7 @@
     </div>
     <div class="col">
 
-      <form action="/signup" method="POST" >
+      <form action="/signup" method="POST" enctype="multipart/form-data">
 
         <div class="mb-3 mt-3">
           <input type="text" class="form-control" id="username" name='username' placeholder="username here">
@@ -28,6 +28,12 @@
         <div class="mb-3">
           <input type="password" class="form-control" id="password" name='password' placeholder="password" >
         </div>
+
+        <div class="mb-3">
+          <label for="profilePictureData" class="form-label">Profile picture</label>
+          <input class="form-control" type="file" id="profilePictureData" name = "profilePictureData">
+        </div>
+
         <button type="submit" class="btn btn-primary">Let's go!</button>
       </form>
     </div>

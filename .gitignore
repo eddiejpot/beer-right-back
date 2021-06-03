@@ -6,3 +6,6 @@ node_modules/
 
 # Dev files
 controllers/indexController_Old.mjs
+
+#multer profile image uploads (leave this on for now as we need seed data for the mvp)
+#uploads/*

@@ -4,15 +4,18 @@
 
 <div class="container-fluid my-container">
   <section class = "row  h-1">
-    <div>
+    <div class = "col-10">
       <h6 class="">Welcome back <%= userName %> ! </h6>
+    </div>
+    <div class = "col-2">
+      <img src="/<%= currentUserProfilePictureName %>" alt="<%= currentUserProfilePictureAltText %>" class = "user-profile-img-small">
     </div>
   </section>
 
   <section class = "row my-row h-25">
     <h2>Beer Wallet 👛</h2>
     <div>
-      <p><small>Available beers (<%= beerWallet %>)</small></p>
+      <p><small>Available beers to give (<%= beerWallet %>)</small></p>
       <!-- If no beers display this -->
       <%if (beerWallet === 0) { %>
         <div class="alert alert-danger my-alert" role="alert">
@@ -33,7 +36,8 @@
       <p>Who owes you</p>
       <section class = "row row-cols-3">
         <% whoOwesUserArr.forEach((e,i) => { %>
-          <div class="col my-col my-col-owe-icon d-flex align-items-center justify-content-center">
+          <div class="col my-col my-col-owe-icon">
+              <img src="/<%= e.profile_picture_hashed_name %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-medium">
               <p><%=e.username %></p>
           </div>
         <% }); %>
@@ -42,13 +46,15 @@
       <p>Who you owe</p>
       <section class = "row row-cols-3">
         <% userOwesWhoArr.forEach((e,i) => { %>
-          <div class="col my-col my-col-owe-icon d-flex align-items-center justify-content-center">
-            <p><%=e.username %></p>
+          <div class="col my-col my-col-owe-icon">
+              <img src="/<%= e.profile_picture_hashed_name %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-medium">
+              <p><%=e.username %></p>
           </div>
         <% }); %>
       </section>
-      <a href="/transactions/all">My Transactions</a>
 
+      <a href="/transactions/all"><i class="bi bi-arrow-left-right"></i> <strong>View all Transactions</strong></a>
+      
   </section>
 
 </div>  

@@ -3,6 +3,9 @@
 /* ============================================================================ */
 import express from 'express';
 
+// multer + set up
+import multer from 'multer'; // npm install multer
+
 /* ============================================================================ */
 /* ======================================================= IMPORT CONTROLLERS = */
 /* ============================================================================ */
@@ -22,6 +25,9 @@ import {
   returnCookiesIfLoggedInMiddleware,
 } from '../controllers/authFunctions.mjs';
 
+// set the name of the upload directory a.k.a image uploads go here
+const multerUpload = multer({ dest: 'uploads/' });
+
 /* ============================================================ SET UP ROUTERS = */
 const router = express.Router();
 
@@ -33,7 +39,7 @@ router.get('/login', loginController);
 router.post('/login', loginPostController);
 
 router.get('/signup', signUpController);
-router.post('/signup', signUpPostController);
+router.post('/signup', multerUpload.single('profilePictureData'), signUpPostController);
 
 // routes for cookie
 router.all('*', returnCookiesIfLoggedInMiddleware, authController);

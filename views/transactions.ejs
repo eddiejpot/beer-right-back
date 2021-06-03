@@ -2,80 +2,131 @@
 <%- include ('partials/nav') %> 
 
 
-<div class="container-fluid my-container buy-beer-container">
-    <section class = "row  h-1">
+<div class="container-fluid my-container transactions-container">
+
+  <section class = "row ">
     <div>
       <h1>My Transactions</h1>
     </div>
   </section>
 
   <nav aria-label="...">
-    <ul class="pagination pagination-lg">
-      <li class="page-item">
-        <a class="page-link" href="/transactions/all" tabindex="-1">ALL</a>
+    <ul class="pagination pagination-sm">
+      <li class="page-item w-100">
+        <a class="page-link" id='all' href="/transactions/all" tabindex="-1">ALL</a>
       </li>
-      <li class="page-item">
-        <a class="page-link" href="/transactions/in">IN</a>
+      <li class="page-item w-100">
+        <a class="page-link" id='in' href="/transactions/in">IN</a>
       </li>
-      <li class="page-item">
-        <a class="page-link" href="/transactions/out">OUT</a>
+      <li class="page-item w-100">
+        <a class="page-link" id='out' href="/transactions/out">OUT</a>
       </li>
-      <li class="page-item">
-        <a class="page-link" href="/transactions/done">DONE</a>
+      <li class="page-item w-100">
+        <a class="page-link" id='done' href="/transactions/done">DONE</a>
       </li>
     </ul>
   </nav>
-    <div>
-      <h4><%= pageTitle %></h4>
 
-      <% beersData.forEach((e,i) => { %>
+  <div>
+
+    <% beersData.forEach((e,i) => { %>
+
+      <% if (sortType === 'all') { %>
+        <div class = "transactions-list row">
+          <div class = "col-2">
+              <img src="/<%= e.profile_picture_hashed_name %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-small">
+          </div>
+          <div class = "col-3">
+              <h5 class="mb-1"><%= e.username %></h5>
+          </div>
+          <div class = "col-5 transactions-expiry">
+            <small class="text-muted">Expires <%= e.beer_expiry_date_edit %></small>
+          </div>
+          <div class = "col-2 transactions-type">
+            <% if (e.type === 'oweMe') { %>
+              <div class= "transactions-in">
+                <small class="text-muted">+🍺</small>
+              </div>
+            <% } else { %>
+              <div class= "transactions-out">
+                <small class="text-muted transactions-out">-🍺</small>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      <% } %>
+
+      <% if (sortType === 'in') { %>
+        <div class = "transactions-list row">
+          <div class = "col-2">
+              <img src="/<%= e.profile_picture_hashed_name %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-small">
+          </div>
+          <div class = "col-3">
+              <h5 class="mb-1"><%= e.username %></h5>
+          </div>
+          <div class = "col-5 transactions-expiry">
+            <small class="text-muted">Expires <%= e.beer_expiry_date_edit %></small>
+          </div>
+          <div class = "col-2 transactions-type">
+              <div class= "transactions-in">
+                <small class="text-muted">+🍺</small>
+              </div>
+          </div>
+        </div>
+      <% } %>
+
+      <% if (sortType === 'out') { %>
+        <div class = "transactions-list row">
+          <div class = "col-2">
+              <img src="/<%= e.profile_picture_hashed_name %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-small">
+          </div>
+          <div class = "col-3">
+              <h5 class="mb-1"><%= e.username %></h5>
+          </div>
+          <div class = "col-5 transactions-expiry">
+            <small class="text-muted">Expires <%= e.beer_expiry_date_edit %></small>
+          </div>
+          <div class = "col-2 transactions-type">
+              <div class= "transactions-out">
+                <small class="text-muted">-🍺</small>
+              </div>
+          </div>
+        </div>
+      <% } %>
+
+      <% if (sortType === 'done') { %>
+        <div class = "transactions-list-done row pattern-dots-sm">
+          <div class = "col-2">
+              <img src="/<%= e.profile_picture_hashed_name %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-small">
+          </div>
+          <div class = "col-3">
+              <h5 class="mb-1"><%= e.username %></h5>
+          </div>
+          <div class = "col-5 transactions-expiry">
+            <small class="text-muted">Redeemed <%= e.beer_redeemed_date_edit %></small>
+          </div>
+          <div class = "col-2 transactions-type">
+              <div class= "transactions-done">
+                <h4 class="text-muted">🍻</h4>
+              </div>
+          </div>
+        </div>
+      <% } %>
+
+    <% }); %>
+  </div>
 
 
-        <% if (sortType === 'all') { %>
-          <section class = "row my-row">
-            <div class="col">
-              <p>Name: <%= e.username %> </p>
-            </div>
-            <div class="col">
-              <p>Expiry: <%= e.beer_expiry_date %></p>
-            </div>
-            <div class="col">
-              <p><%=e.type %> </p>
-            </div>
-          </section>
-        <% } %>
-
-        <% if (sortType === 'in' || sortType === 'out') { %>
-          <section class = "row my-row">
-            <div class="col">
-              <p>Name: <%= e.username %> </p>
-            </div>
-            <div class="col">
-              <p>Expiry: <%= e.beer_expiry_date %></p>
-            </div>
-            <div class="col">
-              <p><%=e.type %> </p>
-            </div>
-          </section>
-        <% } %>
-
-        <% if (sortType === 'done') { %>
-          <section class = "row my-row">
-            <div class="col">
-              <p>Name: <%= e.username %> </p>
-            </div>
-            <div class="col">
-              <p>Redeemed: <%= e.beer_redeemed_date %></p>
-            </div>
-            <div class="col">
-              <p><%=e.type %> </p>
-            </div>
-          </section>
-        <% } %>
-
-      <% }); %>
-    </div>
-
+  
 </div>
 
-  <%- include ('partials/footer') %> 
+<script>
+  const wrapper = document.querySelectorAll(".page-item");
+  wrapper.forEach(e => {
+    if (document.URL.includes(e.firstElementChild.id)){
+      e.classList.add('active');
+    }
+  });
+</script>
+
+<%- include ('partials/footer') %> 
