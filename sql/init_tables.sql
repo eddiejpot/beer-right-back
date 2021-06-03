@@ -27,7 +27,6 @@ CREATE TABLE beer_tickets (
   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-
 /*COMMAND TO RUN
 syntax: psql -f <PATH_TO_FILE> 
 or: \i <PATH_TO_FILE>

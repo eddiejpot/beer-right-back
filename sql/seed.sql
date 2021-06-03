@@ -40,5 +40,7 @@ INSERT INTO beer_tickets (giver_id, receiver_id, beer_status, beer_expiry_date) 
 /*COMMAND TO RUN
 syntax: psql -f <PATH_TO_FILE> 
 or: \i <PATH_TO_FILE>
+
+// command for local desktop
 \i /home/eddiejpot/rocket-academy/bootcamp/projects/project-2-brb/beer-right-back/sql/seed.sql
 */
