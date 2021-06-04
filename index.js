@@ -22,13 +22,7 @@ import authRouter from './routes/authRouter.mjs';
 // Initialise Express
 const app = express();
 // activate port
-let PORT;
-if (process.argv[2]) {
-  console.log('this ran');
-  PORT = process.argv[2];
-} else {
-  PORT = 3004;
-}
+const PORT = process.argv[2] || 3004;
 
 // Override POST requests with query param ?_method=PUT to be PUT requests
 app.use(methodOverride('_method'));

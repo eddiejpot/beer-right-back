@@ -3,25 +3,36 @@
 
 <div class="container-fluid my-container beer-ticket-container d-flex flex-column align-items-center justify-content-center">
 
-  <section class = "row my-row my-row-beer-ticket pattern-dots-sm">
-    <h2>BEER TICKET: <%= beerTicketId %></h2>
+  <section class = "row ">
     <div>
-      <p>Giver: <%= giverName %></p>
-      <p>Reciever: <%= receiverName %></p>
-      <p>Ticket Details:</p>
-      <p>Status: <%= beerTicketData.beer_status %></p>
-      <p>Expiry: <%= beerTicketData.beer_expiry_date %></p>
+      <h2 class="display-1">🍻</h2>
+    </div>
+  </section>
+
+  <section class = "row my-row my-row-beer-ticket my-row-beer-ticket-pre-redeem pattern-dots-sm">
+    <h2>BEER TICKET: <%= beerTicketId %></h2>
+    <div class='col-3'>
+      <p><small>Giver:</small></p>
+      <p><small>Receiver:</small></p>
+      <p><small>Status:</small></p>
+      <p><small>Expiry:</small> </p>
+    </div>
+    <div class='col-9'>
+      <p><small>...... </small><%= giverName %></p>
+      <p><small>...... </small><%= receiverName %></p>
+      <p><small>...... </small><%= beerTicketData.beer_status %></p>
+      <p><small>...... </small><%= beerTicketData.beer_expiry_date_edit %></p>
     </div>
   </section>
 
   <section class = "row ">
 
-    <div class="col d-flex align-items-center">
-      <a class="btn btn-primary" href="/beer/redeem" role="button">GO BACK</a>
+    <div class="col d-flex align-items-center beer-ticket-pre-redeem-btn">
+      <a class="btn btn-warning wide" href="/beer/redeem" role="button">GO BACK</a>
     </div>
 
-    <div class="col d-flex align-items-center">
-      <a class="btn btn-primary" href="/beer/ticket/redeem=true/<%= beerTicketId %>" role="button">I HAVE REDEEMED MY 🍺</a>
+    <div class="col d-flex align-items-center beer-ticket-pre-redeem-btn">
+      <a class="btn btn-primary wide" href="/beer/ticket/redeem=true/<%= beerTicketId %>" role="button">I HAVE REDEEMED MY 🍺</a>
     </div>
   </section>
 

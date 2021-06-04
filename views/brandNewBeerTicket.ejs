@@ -2,16 +2,22 @@
 <%- include ('partials/nav') %> 
 
 <div class="container-fluid my-container beer-ticket-container d-flex flex-column align-items-center justify-content-center">
-  
-  <section class = "row my-row my-row-beer-ticket">
+
+  <section class = "row my-row my-row-beer-ticket my-row-beer-ticket-pre-redeem pattern-dots-sm">
     <h2>BEER TICKET: <%= beerTicketId %></h2>
-    <div>
-      <p>Giver: <%= giverName %></p>
-      <p>Reciever: <%= receiverName %></p>
-      <p>Ticket Details:</p>
-      <p>Status: <%= beerTicketData.beer_status %></p>
-      <p>Expiry (one month from today): <%= beerTicketData.beer_expiry_date %></p>
+    <div class='col-3'>
+      <p><small>Giver:</small></p>
+      <p><small>Receiver:</small></p>
+      <p><small>Status:</small></p>
+      <p><small>Expiry:</small> </p>
     </div>
+    <div class='col-9'>
+      <p><small>...... </small><%= giverName %></p>
+      <p><small>...... </small><%= receiverName %></p>
+      <p><small>...... </small><%= beerTicketData.beer_status %></p>
+      <p><small>...... </small><%= beerTicketExpiry %></p>
+    </div>
+    <p style="color:#808080"><small>Expiry one month from today</small> </p>
   </section>
 
   <section class = "row my-row">

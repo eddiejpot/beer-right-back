@@ -7,16 +7,21 @@
   <h1>Redeemed!</h1>
   </section>
 
-  <section class = "row my-row my-row-beer-ticket pattern-dots-sm">
+  <section class = "row my-row my-row-beer-ticket my-row-beer-ticket-pre-redeem pattern-dots-sm">
     <h2>BEER TICKET: <%= beerTicketId %></h2>
-    <div>
-      <p>Giver: <%= giverName %></p>
-      <p>Reciever: <%= receiverName %></p>
-      <p>Status: <%= beerTicketData.beer_status %></p>
-      <p>Redeemed on: <%= beerTicketData.beer_redeemed_date %></p>
+    <div class='col-3'>
+      <p><small>Giver:</small></p>
+      <p><small>Receiver:</small></p>
+      <p><small>Status:</small></p>
+      <p><small>Expiry:</small> </p>
+    </div>
+    <div class='col-9'>
+      <p><small>...... </small><%= giverName %></p>
+      <p><small>...... </small><%= receiverName %></p>
+      <p><small>...... </small><%= beerTicketData.beer_status %></p>
+      <p><small>...... </small><%= beerTicketData.beer_redeemed_date %></p>
     </div>
   </section>
-
 
 </div>
   <%- include ('partials/footer') %> 

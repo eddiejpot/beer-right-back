@@ -23,6 +23,10 @@ import {
   getBeerTicketData,
 } from './sqlQueryFunctions.mjs';
 
+import {
+  checkUserLoginDetails,
+} from './authFunctions.mjs';
+
 /* ============================================================================ */
 /* ======================================================= MIDDLEWARE FUNCTIONS */
 /* ============================================================================ */
@@ -46,17 +50,11 @@ export const authController = (req, res, next) => {
 
 export const landingPageController = (req, res) => {
   console.log('Inside ----> landingPageController');
-
-  // get global exchange data
-  const getDataAndRender = async () => {
-    res.status(200).render('landingPage', {
-      title: '',
-      page: '',
-      desc: '',
-    });
-  };
-  // execute
-  getDataAndRender();
+  res.status(200).render('landingPage', {
+    title: '',
+    page: '',
+    desc: '',
+  });
 };
 
 // ' /login '
@@ -80,58 +78,44 @@ export const loginPostController = (req, res) => {
   const { password } = req.body;
   const getDataAndRender = async () => {
     // get users
-    let redirectPath;
     const allUsers = await getUsers();
-    const allUsersLength = allUsers.length;
+    // perform login check
+    const loginOutcomeObj = checkUserLoginDetails(allUsers, email, password);
 
-    console.log(email);
-    // Check if email exists
-    // using for loop over for each because i need to exit the loop once a condition is met
-    for (let i = 0; i < allUsersLength; i += 1) {
-      const userDetail = allUsers[i];
-      // If email exists...;
-      if (userDetail.email === email) {
-        console.log('logging in');
-
-        // initialise SHA object
-        const shaObj = new jsSHA('SHA-512', 'TEXT', { encoding: 'UTF8' });
-        // input the password from the request to the SHA object
-        shaObj.update(password);
-        // get the hashed value as output from the SHA object
-        const hashedPassword = shaObj.getHash('HEX');
-
-        // check password
-        if (userDetail.password !== hashedPassword) {
-          // res.status(403).send('sorry wrong password!');
-          res.cookie('loggedIn', false);
-          redirectPath = '/login';
-          break;
-        }
-
-        // if password correct
+    // send cookies and redirect depending on login outcome
+    switch (loginOutcomeObj.loginOutcome) {
+      case 'EMAIL_NOT_EXIST':
         // send cookies
-        // logged in cookie
+        res.cookie('loggedIn', false);
+        // redirect
+        console.log('Email does not exist! Redirecting to login page!');
+        res.redirect('/login');
+        break;
+
+      case 'PASSWORD_WRONG':
+        // send cookies
+        res.cookie('loggedIn', false);
+        // redirect
+        console.log('Wrong password! Redirecting to login page!');
+        res.redirect('/login');
+        break;
+
+      case 'CORRECT_LOGIN_DETAILS':
+        // send cookies
         res.cookie('loggedIn', true);
         // user id cookie
-        res.cookie('userId', userDetail.id);
+        res.cookie('userId', loginOutcomeObj.userData.id);
         // userName cookie
-        res.cookie('userName', userDetail.username);
-        // redirect to homepage
-        console.log('GOING TO REDIRECT');
-        redirectPath = '/';
+        res.cookie('userName', loginOutcomeObj.userData.username);
+        // redirect
+        console.log('Correct Login Details! Redirecting to homepage!');
+        res.redirect('/');
         break;
-        // console.log('redirected');
-        // checkIfCorrectUserEmail = true;
-      }
-      console.log('coming out of check');
-      // If email does not exist
-      if (allUsersLength === i + 1) {
-        res.cookie('loggedIn', false);
-        redirectPath = '/login';
+
+      default:
+        console.log('This should not need to run');
         break;
-      }
     }
-    res.redirect(redirectPath);
   };
   // execute
   getDataAndRender();

@@ -69,78 +69,146 @@ export const profileController = (req, res) => {
 };
 
 /* ================================================================ TRANSACTIONS */
+// // ' /transactions/:sort '
+// export const transactionsSortController = (req, res) => {
+//   console.log('Inside ----> transactionsSortController');
+//   // get userId
+//   const { userId } = req;
+//   // get sort type
+//   const sortType = req.params.sort;
+
+//   // const get data
+//   const getDataAndRender = async () => {
+//     // get data needed
+//     const usersAndBeerTicketsData = await getUsersAndBeerTicketsData(userId);
+//     const usersAndBeerTicketsRedeemedData = await getUsersAndBeerTicketsRedeemedData(userId);
+
+//     // determine what to render depending on sort type
+//     let dataToRender;
+
+//     const updatedBeersOwedToUserArr = usersAndBeerTicketsData.beersOwedToUser;
+//     const updatedBeersUserOwesArr = usersAndBeerTicketsData.beersUserOwes;
+
+//     // add in a new key beer_expiry_date_edit
+//     changeDateFormat(updatedBeersOwedToUserArr);
+//     changeDateFormat(updatedBeersUserOwesArr);
+
+//     // add in a new key beer_redeemed_date_edit
+//     changeRedeemDateFormat(usersAndBeerTicketsRedeemedData.beersOwedToUser);
+//     changeRedeemDateFormat(usersAndBeerTicketsRedeemedData.beersUserOwes);
+
+//     switch (sortType) {
+//       case 'all': {
+//         // edit and add parameter before sending to ejs
+//         updatedBeersOwedToUserArr.forEach((e) => e.type = 'oweMe');
+//         updatedBeersUserOwesArr.forEach((e) => e.type = 'iOwe');
+
+//         // combine arr
+//         dataToRender = [...updatedBeersOwedToUserArr, ...updatedBeersUserOwesArr];
+//         break;
+//       }
+//       case 'in':
+//         dataToRender = updatedBeersOwedToUserArr;
+//         break;
+//       case 'out':
+//         dataToRender = updatedBeersUserOwesArr;
+//         break;
+//       case 'done': {
+//         // edit and add parameter before sending to ejs
+//         const redeemUserArr = usersAndBeerTicketsRedeemedData.beersOwedToUser;
+//         redeemUserArr.forEach((e) => { e.type = 'redeemedByUser'; });
+//         const redeemFriendsArr = usersAndBeerTicketsRedeemedData.beersUserOwes;
+//         redeemFriendsArr.forEach((e) => { e.type = 'redeemedByFriend'; });
+
+//         // combine arr
+//         dataToRender = [...redeemUserArr, ...redeemFriendsArr];
+//         console.log(dataToRender);
+//         break;
+//       }
+//       default:
+//         console.log('Error on transactionsSortController');
+//         break;
+//     }
+//     // render page
+//     res.status(200).render('transactions', {
+//       title: '',
+//       page: '',
+//       desc: '',
+//       beersData: dataToRender,
+//       sortType,
+//     });
+//   };
+//   // execute
+//   getDataAndRender();
+// };
 
 // ' /transactions/:sort '
-export const transactionsSortController = (req, res) => {
+export const transactionsSortController = async (req, res) => {
   console.log('Inside ----> transactionsSortController');
   // get userId
   const { userId } = req;
   // get sort type
   const sortType = req.params.sort;
 
-  // const get data
-  const getDataAndRender = async () => {
-    // get data needed
-    const usersAndBeerTicketsData = await getUsersAndBeerTicketsData(userId);
-    const usersAndBeerTicketsRedeemedData = await getUsersAndBeerTicketsRedeemedData(userId);
+  // get user and beer ticket data
+  const usersAndBeerTicketsData = await getUsersAndBeerTicketsData(userId);
+  // split into beers user owes and beers owed to user
+  const updatedBeersOwedToUserArr = usersAndBeerTicketsData.beersOwedToUser;
+  const updatedBeersUserOwesArr = usersAndBeerTicketsData.beersUserOwes;
+  // add in a new key beer_expiry_date_edit
+  changeDateFormat(updatedBeersOwedToUserArr);
+  changeDateFormat(updatedBeersUserOwesArr);
 
-    // determine what to render depending on sort type
-    let dataToRender;
+  // determine what to render depending on sort type
+  let dataToRender;
 
-    const updatedBeersOwedToUserArr = usersAndBeerTicketsData.beersOwedToUser;
-    const updatedBeersUserOwesArr = usersAndBeerTicketsData.beersUserOwes;
-
-    // add in a new key beer_expiry_date_edit
-    changeDateFormat(updatedBeersOwedToUserArr);
-    changeDateFormat(updatedBeersUserOwesArr);
-
-    // add in a new key beer_redeemed_date_edit
-    changeRedeemDateFormat(usersAndBeerTicketsRedeemedData.beersOwedToUser);
-    changeRedeemDateFormat(usersAndBeerTicketsRedeemedData.beersUserOwes);
-
-    switch (sortType) {
-      case 'all': {
-        // edit and add parameter before sending to ejs
-        updatedBeersOwedToUserArr.forEach((e) => e.type = 'oweMe');
-        updatedBeersUserOwesArr.forEach((e) => e.type = 'iOwe');
-
-        // combine arr
-        dataToRender = [...updatedBeersOwedToUserArr, ...updatedBeersUserOwesArr];
-        break;
-      }
-      case 'in':
-        dataToRender = updatedBeersOwedToUserArr;
-        break;
-      case 'out':
-        dataToRender = updatedBeersUserOwesArr;
-        break;
-      case 'done': {
-        // edit and add parameter before sending to ejs
-        const redeemUserArr = usersAndBeerTicketsRedeemedData.beersOwedToUser;
-        redeemUserArr.forEach((e) => { e.type = 'redeemedByUser'; });
-        const redeemFriendsArr = usersAndBeerTicketsRedeemedData.beersUserOwes;
-        redeemFriendsArr.forEach((e) => { e.type = 'redeemedByFriend'; });
-
-        // combine arr
-        dataToRender = [...redeemUserArr, ...redeemFriendsArr];
-        console.log(dataToRender);
-        break;
-      }
-      default:
-        console.log('Error on transactionsSortController');
-        break;
+  switch (sortType) {
+    case 'all': {
+      // edit and add parameter before sending to ejs
+      updatedBeersOwedToUserArr.forEach((e) => e.type = 'oweMe');
+      updatedBeersUserOwesArr.forEach((e) => e.type = 'iOwe');
+      // combine arr
+      dataToRender = [...updatedBeersOwedToUserArr, ...updatedBeersUserOwesArr];
+      break;
     }
-    // render page
-    res.status(200).render('transactions', {
-      title: '',
-      page: '',
-      desc: '',
-      beersData: dataToRender,
-      sortType,
-    });
-  };
-  // execute
-  getDataAndRender();
+    case 'in':
+      dataToRender = updatedBeersOwedToUserArr;
+      break;
+    case 'out':
+      dataToRender = updatedBeersUserOwesArr;
+      break;
+    case 'done': {
+      // get redeemed tickets data
+      const usersAndBeerTicketsRedeemedData = await getUsersAndBeerTicketsRedeemedData(userId);
+      // split up in who owes user and who user owes
+      const redeemUserArr = usersAndBeerTicketsRedeemedData.beersOwedToUser;
+      const redeemFriendsArr = usersAndBeerTicketsRedeemedData.beersUserOwes;
+
+      // add in a new key beer_redeemed_date_edit
+      changeRedeemDateFormat(usersAndBeerTicketsRedeemedData.beersOwedToUser);
+      changeRedeemDateFormat(usersAndBeerTicketsRedeemedData.beersUserOwes);
+
+      // edit and add parameter before sending to ejs
+      redeemUserArr.forEach((e) => { e.type = 'redeemedByUser'; });
+      redeemFriendsArr.forEach((e) => { e.type = 'redeemedByFriend'; });
+
+      // combine arr
+      dataToRender = [...redeemUserArr, ...redeemFriendsArr];
+      console.log(dataToRender);
+      break;
+    }
+    default:
+      console.log('Error on transactionsSortController');
+      break;
+  }
+  // render page
+  res.status(200).render('transactions', {
+    title: '',
+    page: '',
+    desc: '',
+    beersData: dataToRender,
+    sortType,
+  });
 };
 
 /* ================================================================ CONTACTS */
@@ -198,6 +266,8 @@ export const beerBuyPostController = (req, res) => {
   console.log(friendId);
   // get date (one-month from now)
   const dateOneMonthFromNow = moment().add(1, 'months').format('YYYY-MM-DD');
+  // reformat date for viewing in eja
+  const dateOneMonthFromNowEdit = moment().add(1, 'months').format('DD-MM-YYYY');
 
   // update beer_tickets table
   const getDataAndRender = async () => {
@@ -222,6 +292,7 @@ export const beerBuyPostController = (req, res) => {
       giverName: beerTicketData.giverName,
       receiverName: beerTicketData.receiverName,
       beerTicketData: beerTicketData.ticketData,
+      beerTicketExpiry: dateOneMonthFromNowEdit,
     });
   };
   // execute
@@ -272,15 +343,18 @@ export const beerBrandNewTicketController = (req, res) => {
 // ' /beer/ticket/:id '
 export const beerTicketController = (req, res) => {
   console.log('Inside ----> beerTicketController');
-  // get userId
-  const { userId } = req;
   // get beer ticket id
   const beerTicketId = req.params.id;
 
+  // getBeerTicketData(beerTicketId).then((data) => { console.log(data); });
   // get data
   const getDataAndRender = async () => {
     const beerTicketData = await getBeerTicketData(beerTicketId);
-    // // render
+
+    // add in a new key beer_expiry_date_edit
+    changeDateFormat([beerTicketData.ticketData]);
+
+    // render
     res.status(200).render('beerTicket', {
       title: '',
       page: '',

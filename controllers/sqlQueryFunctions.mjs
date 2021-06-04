@@ -14,10 +14,12 @@ export const getUsers = async () => {
   return promise.rows;
 };
 
-// Helper functions to get current userdata
-export const getCurrentUserData = async (currentUserId) => {
-  const promise = await pool.query(`SELECT * FROM users WHERE id = ${currentUserId}`);
-  return promise.rows[0];
+export const getCurrentUserData = (currentUserId) => {
+  const promise = pool
+    .query(`SELECT * FROM users WHERE id = ${currentUserId}`)
+    .then((result) => result.rows[0])
+    .catch((err) => console.log(`getCurretUserData FAILED ${err}`));
+  return promise;
 };
 
 export const getWhoOwesUserData = async (currentUserId) => {
@@ -93,27 +95,56 @@ export const getUsersAndBeerTicketsRedeemedData = async (currentUserId) => {
 };
 
 // Helper function to get user friends
-export const getUserFriends = async (currentUserId) => {
+export const getUserFriends = (currentUserId) => {
   // Promise to create join table for data of those who owe user a beer
-  const promise1 = await pool.query(`SELECT * FROM users INNER JOIN friends ON friends.friend_id = users.id WHERE friends.user_id = ${currentUserId}`);
-  // return arr
-  return promise1.rows;
+  const promise = pool
+    .query(`SELECT * FROM users INNER JOIN friends ON friends.friend_id = users.id WHERE friends.user_id = ${currentUserId}`)
+    .then((result) => result.rows)
+    .catch((err) => console.log(`getCurretUserData FAILED ${err}`));
+  return promise;
 };
 
-// Helper function to get beer ticket data
-export const getBeerTicketData = async (beerTicketId) => {
+// // Helper function to get beer ticket data
+export const getBeerTicketData = (beerTicketId) => {
   const beerTicketData = {};
   // Promise to get beer ticket data
-  const promise1 = await pool.query(`SELECT * FROM beer_tickets WHERE id = ${beerTicketId}`);
-  [beerTicketData.ticketData] = promise1.rows;
-  // promise to get giverName
-  const promise2 = await pool.query(`SELECT users.username, users.id FROM users INNER JOIN beer_tickets ON beer_tickets.giver_id = users.id WHERE beer_tickets.id = ${beerTicketId}`);
-  beerTicketData.giverName = promise2.rows[0].username;
-  beerTicketData.giverId = promise2.rows[0].id;
-  // promise to get receiverName
-  const promise3 = await pool.query(`SELECT users.username, users.id FROM users INNER JOIN beer_tickets ON beer_tickets.receiver_id = users.id WHERE beer_tickets.id = ${beerTicketId}`);
-  beerTicketData.receiverName = promise3.rows[0].username;
-  beerTicketData.receiverId = promise3.rows[0].id;
-  // return arr
-  return beerTicketData;
+  const ticketData = pool
+    .query(`SELECT * FROM beer_tickets WHERE id = ${beerTicketId}`)
+    .then((result) => {
+      beerTicketData.ticketData = result.rows[0];
+    });
+
+  const giverData = pool
+    .query(`SELECT users.username, users.id FROM users INNER JOIN beer_tickets ON beer_tickets.giver_id = users.id WHERE beer_tickets.id = ${beerTicketId}`)
+    .then((result) => {
+      beerTicketData.giverName = result.rows[0].username;
+      beerTicketData.giverId = result.rows[0].id;
+    });
+
+  const recieverData = pool
+    .query(`SELECT users.username, users.id FROM users INNER JOIN beer_tickets ON beer_tickets.receiver_id = users.id WHERE beer_tickets.id = ${beerTicketId}`)
+    .then((result) => {
+      beerTicketData.receiverName = result.rows[0].username;
+      beerTicketData.receiverId = result.rows[0].id;
+    });
+
+  return Promise.all([ticketData, giverData, recieverData]).then(() => beerTicketData);
 };
+
+// // Helper function to get beer ticket data (async)
+// export const getBeerTicketData = async (beerTicketId) => {
+//   const beerTicketData = {};
+//   // Promise to get beer ticket data
+//   const promise1 = await pool.query(`SELECT * FROM beer_tickets WHERE id = ${beerTicketId}`);
+//   [beerTicketData.ticketData] = promise1.rows;
+//   // promise to get giverName
+//   const promise2 = await pool.query(`SELECT users.username, users.id FROM users INNER JOIN beer_tickets ON beer_tickets.giver_id = users.id WHERE beer_tickets.id = ${beerTicketId}`);
+//   beerTicketData.giverName = promise2.rows[0].username;
+//   beerTicketData.giverId = promise2.rows[0].id;
+//   // promise to get receiverName
+//   const promise3 = await pool.query(`SELECT users.username, users.id FROM users INNER JOIN beer_tickets ON beer_tickets.receiver_id = users.id WHERE beer_tickets.id = ${beerTicketId}`);
+//   beerTicketData.receiverName = promise3.rows[0].username;
+//   beerTicketData.receiverId = promise3.rows[0].id;
+//   // return arr
+//   return beerTicketData;
+// };
