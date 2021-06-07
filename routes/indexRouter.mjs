@@ -17,6 +17,7 @@ import {
   beerBrandNewTicketController,
   beerTicketController,
   beerTicketRedeemController,
+  logoutController,
 } from '../controllers/indexController.mjs';
 
 /* ============================================================================ */
@@ -51,6 +52,8 @@ router.get('/beer/brand-new-ticket/:id', beerBrandNewTicketController);
 router.get('/beer/ticket/:id', beerTicketController);
 
 router.get('/beer/ticket/redeem=true/:id', beerTicketRedeemController);
+
+router.get('/logout', logoutController);
 
 /* ============================================================================ */
 /* =========================================================== EXPORT ROUTER = */

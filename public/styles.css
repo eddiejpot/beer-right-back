@@ -421,7 +421,8 @@ a.wide {
   margin: 1rem 0;
 }
 
-.my-col-profile button {
+.my-col-profile a {
+  display: inline-block;
   width: 60%;
   margin: 0.5rem;
   background-color: rgb(255, 219, 60);

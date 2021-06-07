@@ -35,29 +35,25 @@ import {
 /* ============================================================================ */
 
 /* ================================================================ BEER EXCHANGE */
-export const userDashboardController = (req, res) => {
+export const userDashboardController = async (req, res) => {
   console.log('Inside ----> userDashboardController');
   // get userId
   const { userId } = req;
 
-  const getDataAnRenderPage = async () => {
-    // get data needed
-    const currentUserData = await getCurrentUserData(userId);
-    const whoOwesUserArr = await getWhoOwesUserData(userId);
-    const userOwesWhoArr = await getUserOwesWhoData(userId);
+  // get data needed
+  const currentUserData = await getCurrentUserData(userId);
+  const whoOwesUserArr = await getWhoOwesUserData(userId);
+  const userOwesWhoArr = await getUserOwesWhoData(userId);
 
-    // render page
-    res.status(200).render('index', {
-      userName: currentUserData.username.toUpperCase(),
-      currentUserProfilePictureName: currentUserData.profile_picture_hashed_name,
-      currentUserProfilePictureAltText: currentUserData.profile_picture_alt_text,
-      beerWallet: currentUserData.available_beer_tickets,
-      whoOwesUserArr,
-      userOwesWhoArr,
-    });
-  };
-  // execute function
-  getDataAnRenderPage();
+  // render page
+  res.status(200).render('index', {
+    userName: currentUserData.username.toUpperCase(),
+    currentUserProfilePictureName: currentUserData.profile_picture_hashed_name,
+    currentUserProfilePictureAltText: currentUserData.profile_picture_alt_text,
+    beerWallet: currentUserData.available_beer_tickets,
+    whoOwesUserArr,
+    userOwesWhoArr,
+  });
 };
 
 /* ================================================================ USER PROFILE */
@@ -75,6 +71,17 @@ export const profileController = async (req, res) => {
     currentUserProfilePictureAltText: currentUserData.profile_picture_alt_text,
     beerWallet: currentUserData.available_beer_tickets,
   });
+};
+
+/* ================================================================ LOG OUT */
+export const logoutController = (req, res) => {
+  console.log('Inside ----> logoutController');
+  // delete cookies
+  res.clearCookie('userId');
+  res.clearCookie('userName');
+  res.clearCookie('loggedIn');
+  // redirect to login page
+  res.redirect('/login');
 };
 
 /* ================================================================ TRANSACTIONS */
