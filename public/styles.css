@@ -48,6 +48,10 @@ p {
   width: 4rem;
 }
 
+.user-profile-img-large {
+  width: 10rem;
+}
+
 /* LOGIN / SIGN UP*/
 .login-beer-logo,
 .signup-logo {
@@ -58,6 +62,19 @@ p {
 
 .signup-logo {
   filter: invert(100%);
+}
+
+.login-signup-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-signup-page-container label {
+  color: #fff;
+  text-align: left;
+  font-size: 0.8rem;
 }
 
 .my-alert {
@@ -299,4 +316,72 @@ a.wide {
 
 .transactions-expiry {
   font-size: 12px;
+}
+
+/* LANDING PAGE */
+.landing-page-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 4rem;
+  color: #fff;
+}
+
+.title p {
+  margin: 0;
+  padding: 0;
+  color: rgb(253 164 0);
+}
+
+.landing-page-brb-description {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing-page-brb-description {
+  margin-top: 1.5rem;
+  padding: 2rem;
+}
+
+.landing-page-brb-description p {
+  line-height: 1.5rem;
+  margin-bottom: 1.1rem;
+  color: rgb(214, 214, 214);
+  text-shadow: 2px 2px rgb(92, 92, 92);
+}
+
+/* PROFILE PAGE */
+.my-container-profile {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+.my-row-profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.my-col-profile {
+  margin: 1rem 0;
+}
+
+.my-col-profile button {
+  width: 60%;
+  margin: 0.5rem;
+  background-color: rgb(255, 219, 60);
+  border: none;
+  color: rgb(36, 36, 36);
 }

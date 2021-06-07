@@ -65,83 +65,23 @@ export const userDashboardController = (req, res) => {
 };
 
 /* ================================================================ USER PROFILE */
-export const profileController = (req, res) => {
+export const profileController = async (req, res) => {
+  console.log('Inside ----> profileController');
+  // get userId
+  const { userId } = req;
+  // get data needed
+  const currentUserData = await getCurrentUserData(userId);
+
+  // render page
+  res.status(200).render('profile', {
+    userName: currentUserData.username.toUpperCase(),
+    currentUserProfilePictureName: currentUserData.profile_picture_hashed_name,
+    currentUserProfilePictureAltText: currentUserData.profile_picture_alt_text,
+    beerWallet: currentUserData.available_beer_tickets,
+  });
 };
 
 /* ================================================================ TRANSACTIONS */
-// // ' /transactions/:sort '
-// export const transactionsSortController = (req, res) => {
-//   console.log('Inside ----> transactionsSortController');
-//   // get userId
-//   const { userId } = req;
-//   // get sort type
-//   const sortType = req.params.sort;
-
-//   // const get data
-//   const getDataAndRender = async () => {
-//     // get data needed
-//     const usersAndBeerTicketsData = await getUsersAndBeerTicketsData(userId);
-//     const usersAndBeerTicketsRedeemedData = await getUsersAndBeerTicketsRedeemedData(userId);
-
-//     // determine what to render depending on sort type
-//     let dataToRender;
-
-//     const updatedBeersOwedToUserArr = usersAndBeerTicketsData.beersOwedToUser;
-//     const updatedBeersUserOwesArr = usersAndBeerTicketsData.beersUserOwes;
-
-//     // add in a new key beer_expiry_date_edit
-//     changeDateFormat(updatedBeersOwedToUserArr);
-//     changeDateFormat(updatedBeersUserOwesArr);
-
-//     // add in a new key beer_redeemed_date_edit
-//     changeRedeemDateFormat(usersAndBeerTicketsRedeemedData.beersOwedToUser);
-//     changeRedeemDateFormat(usersAndBeerTicketsRedeemedData.beersUserOwes);
-
-//     switch (sortType) {
-//       case 'all': {
-//         // edit and add parameter before sending to ejs
-//         updatedBeersOwedToUserArr.forEach((e) => e.type = 'oweMe');
-//         updatedBeersUserOwesArr.forEach((e) => e.type = 'iOwe');
-
-//         // combine arr
-//         dataToRender = [...updatedBeersOwedToUserArr, ...updatedBeersUserOwesArr];
-//         break;
-//       }
-//       case 'in':
-//         dataToRender = updatedBeersOwedToUserArr;
-//         break;
-//       case 'out':
-//         dataToRender = updatedBeersUserOwesArr;
-//         break;
-//       case 'done': {
-//         // edit and add parameter before sending to ejs
-//         const redeemUserArr = usersAndBeerTicketsRedeemedData.beersOwedToUser;
-//         redeemUserArr.forEach((e) => { e.type = 'redeemedByUser'; });
-//         const redeemFriendsArr = usersAndBeerTicketsRedeemedData.beersUserOwes;
-//         redeemFriendsArr.forEach((e) => { e.type = 'redeemedByFriend'; });
-
-//         // combine arr
-//         dataToRender = [...redeemUserArr, ...redeemFriendsArr];
-//         console.log(dataToRender);
-//         break;
-//       }
-//       default:
-//         console.log('Error on transactionsSortController');
-//         break;
-//     }
-//     // render page
-//     res.status(200).render('transactions', {
-//       title: '',
-//       page: '',
-//       desc: '',
-//       beersData: dataToRender,
-//       sortType,
-//     });
-//   };
-//   // execute
-//   getDataAndRender();
-// };
-
 // ' /transactions/:sort '
 export const transactionsSortController = async (req, res) => {
   console.log('Inside ----> transactionsSortController');

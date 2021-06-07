@@ -1,16 +1,16 @@
 <%- include ('partials/header') %> 
 
 
-<div class="container-fluid my-container">
+<div class="container-fluid my-container login-signup-page-container ">
 
 
   <section class = "row">
     <div>
-      <h1 class="">Create an account </h1>
+      <h1 class=" text-center">Create an account </h1>
     </div>
   </section>
 
-  <section class = "row d-flex flex-column ">
+  <section class = "row d-flex flex-column px-5">
     <div class="col text-center">
       <img src="https://www.svgrepo.com/show/20/user.svg" alt="" class = "signup-logo">
     </div>
@@ -18,28 +18,30 @@
 
       <form action="/signup" method="POST" enctype="multipart/form-data">
 
-        <div class="mb-3 mt-3">
+        <div class="mb-3 mt-3 ">
           <input type="text" class="form-control" id="username" name='username' placeholder="username here">
         </div>
 
         <div class="mb-3 mt-3">
           <input type="email" class="form-control" id="email" name='email' placeholder="name@example.com">
         </div>
-        <div class="mb-3">
+        <div class=" mt-3">
           <input type="password" class="form-control" id="password" name='password' placeholder="password" >
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 ">
           <label for="profilePictureData" class="form-label">Profile picture</label>
           <input class="form-control" type="file" id="profilePictureData" name = "profilePictureData">
         </div>
-
-        <button type="submit" class="btn btn-primary">Let's go!</button>
+        
+        <div class="mb-3 text-center">
+         <button type="submit" class="btn btn-primary ">Let's go!</button>
+        </div>
       </form>
     </div>
   </section>
 
-  <section class = "row">
+  <section class = "row mt-2">
     <div>
       <a href="/login">I already have an account</a>
     </div>

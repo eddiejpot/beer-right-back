@@ -1,0 +1,24 @@
+<%- include ('partials/header') %> 
+<%- include ('partials/nav') %> 
+
+
+<div class="container-fluid my-container-profile">
+
+  <section class = "row my-row-profile text-center">
+
+    <div class = "col my-col-profile">
+      <img src="/<%= currentUserProfilePictureName %>" alt="<%= currentUserProfilePictureAltText %>" class = "user-profile-img-large">
+      <h6 class=""><%= userName %></h6>
+    </div>
+
+    <div class = "col col my-col-profile">
+      <button type="button" class="btn  disabled">edit profile</button>
+      <button type="button" class="btn  disabled">beer settings</button>
+      <button type="button" class="btn  disabled">log out</button>
+    </div>
+
+  </section>
+
+</div>  
+
+<%- include ('partials/footer') %> 
