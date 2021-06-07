@@ -201,9 +201,10 @@ export const beerBuyPostController = (req, res) => {
   const { userId } = req;
   // get form data
   const formData = req.body;
+  console.log('FORM DATAAAA!!!');
+  console.log(formData);
   // get friend Id
   const friendId = Number(formData.friendId);
-  console.log(friendId);
   // get date (one-month from now)
   const dateOneMonthFromNow = moment().add(1, 'months').format('YYYY-MM-DD');
   // reformat date for viewing in eja
