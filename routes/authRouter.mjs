@@ -23,7 +23,7 @@ import {
 /* ============================================================================ */
 import {
   returnCookiesIfLoggedInMiddleware,
-} from '../controllers/authFunctions.mjs';
+} from '../utils/authFunctions.mjs';
 
 // set the name of the upload directory a.k.a image uploads go here
 const multerUpload = multer({ dest: 'uploads/' });

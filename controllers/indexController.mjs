@@ -3,8 +3,7 @@
 /* ============================================================================ */
 // others
 import moment from 'moment'; // npm install moment
-// hashing
-import jsSHA from 'jssha';
+
 // database stuff (postgres)
 import pool from '../models/dbConfig.mjs';
 
@@ -20,19 +19,16 @@ import {
   getUsersAndBeerTicketsRedeemedData,
   getUserFriends,
   getBeerTicketData,
-} from './sqlQueryFunctions.mjs';
+} from '../utils/sqlQueryFunctions.mjs';
 
 import {
   changeDateFormat,
   changeRedeemDateFormat,
-} from './helperFunctions.mjs';
+} from '../utils/helperFunctions.mjs';
 
 /* ============================================================================ */
 /* ======================================================= MIDDLEWARE FUNCTIONS */
 /* ============================================================================ */
-import {
-  returnCookiesIfLoggedInMiddleware,
-} from './authFunctions.mjs';
 
 /* ============================================================================ */
 /* ================================================================ CONTROLLERS */
@@ -153,49 +149,41 @@ export const transactionsSortController = async (req, res) => {
 
 /* ================================================================ CONTACTS */
 // ' /contacts '
-export const contactsController = (req, res) => {
+export const contactsController = async (req, res) => {
   console.log('Inside ----> contactsController');
   // get userId
   const { userId } = req;
   // get data
-  const getDataAndRender = async () => {
-    const userFriendsData = await getUserFriends(userId);
-    // render
-    res.status(200).render('contacts', {
-      title: '',
-      page: '',
-      desc: '',
-      userFriends: userFriendsData,
-    });
-  };
-  // exeute
-  getDataAndRender();
+  const userFriendsData = await getUserFriends(userId);
+  // render
+  res.status(200).render('contacts', {
+    title: '',
+    page: '',
+    desc: '',
+    userFriends: userFriendsData,
+  });
 };
 
 /* ================================================================ BEER BUY */
 // ' /beer/buy'
-export const beerBuyController = (req, res) => {
+export const beerBuyController = async (req, res) => {
   console.log('Inside ----> beerBuyController');
   // get userId
   const { userId } = req;
   // get data
-  const getDataAndRender = async () => {
-    const userFriendsData = await getUserFriends(userId);
-    const currentUserData = await getCurrentUserData(userId);
-    // render
-    res.status(200).render('beerBuy', {
-      title: '',
-      page: '',
-      desc: '',
-      userFriends: userFriendsData,
-      beerWallet: currentUserData.available_beer_tickets,
-    });
-  };
-  // exeute
-  getDataAndRender();
+  const userFriendsData = await getUserFriends(userId);
+  const currentUserData = await getCurrentUserData(userId);
+  // render
+  res.status(200).render('beerBuy', {
+    title: '',
+    page: '',
+    desc: '',
+    userFriends: userFriendsData,
+    beerWallet: currentUserData.available_beer_tickets,
+  });
 };
 
-export const beerBuyPostController = (req, res) => {
+export const beerBuyPostController = async (req, res) => {
   console.log('Inside ----> beerBuyPostController');
   // get userId
   const { userId } = req;
@@ -211,61 +199,54 @@ export const beerBuyPostController = (req, res) => {
   const dateOneMonthFromNowEdit = moment().add(1, 'months').format('DD-MM-YYYY');
 
   // update beer_tickets table
-  const getDataAndRender = async () => {
-    let beerTicketId = '';
 
-    const dataToInsert = [userId, friendId, 'available', dateOneMonthFromNow];
-    const updateBeerTicketsTable = await pool.query('INSERT INTO beer_tickets (giver_id, receiver_id, beer_status, beer_expiry_date) VALUES ($1, $2, $3, $4) RETURNING*', dataToInsert);
-    console.log(`Success in adding to beer_tickets! ${updateBeerTicketsTable.rows}`);
-    beerTicketId = updateBeerTicketsTable.rows[0].id;
+  let beerTicketId = '';
 
-    const updateBeerWallet = await pool.query(`UPDATE users SET available_beer_tickets  = available_beer_tickets - 1 WHERE id = ${userId} RETURNING*`);
-    console.log(`Success in editng user.available_beer_tickets! ${updateBeerWallet.rows}`);
+  const dataToInsert = [userId, friendId, 'available', dateOneMonthFromNow];
+  const updateBeerTicketsTable = await pool.query('INSERT INTO beer_tickets (giver_id, receiver_id, beer_status, beer_expiry_date) VALUES ($1, $2, $3, $4) RETURNING*', dataToInsert);
+  console.log(`Success in adding to beer_tickets! ${updateBeerTicketsTable.rows}`);
+  beerTicketId = updateBeerTicketsTable.rows[0].id;
 
-    const beerTicketData = await getBeerTicketData(beerTicketId);
+  const updateBeerWallet = await pool.query(`UPDATE users SET available_beer_tickets  = available_beer_tickets - 1 WHERE id = ${userId} RETURNING*`);
+  console.log(`Success in editng user.available_beer_tickets! ${updateBeerWallet.rows}`);
 
-    // // render
-    res.status(200).render('brandNewBeerTicket', {
-      title: '',
-      page: '',
-      desc: '',
-      beerTicketId,
-      giverName: beerTicketData.giverName,
-      receiverName: beerTicketData.receiverName,
-      beerTicketData: beerTicketData.ticketData,
-      beerTicketExpiry: dateOneMonthFromNowEdit,
-    });
-  };
-  // execute
-  getDataAndRender();
+  const beerTicketData = await getBeerTicketData(beerTicketId);
+
+  // // render
+  res.status(200).render('brandNewBeerTicket', {
+    title: '',
+    page: '',
+    desc: '',
+    beerTicketId,
+    giverName: beerTicketData.giverName,
+    receiverName: beerTicketData.receiverName,
+    beerTicketData: beerTicketData.ticketData,
+    beerTicketExpiry: dateOneMonthFromNowEdit,
+  });
 };
 
 /* ================================================================ BEER REDEEM */
 // ' /beer/redeem '
-export const beerRedeemController = (req, res) => {
+export const beerRedeemController = async (req, res) => {
   console.log('Inside ----> beerRedeemController');
   // get userId
   const { userId } = req;
   // const get data
-  const getDataAndRender = async () => {
-    // get data needed
-    const usersAndBeerTicketsData = await getUsersAndBeerTicketsData(userId);
-    // get those that owe current user
-    const peopleWhoOweUser = usersAndBeerTicketsData.beersOwedToUser;
+  // get data needed
+  const usersAndBeerTicketsData = await getUsersAndBeerTicketsData(userId);
+  // get those that owe current user
+  const peopleWhoOweUser = usersAndBeerTicketsData.beersOwedToUser;
 
-    // add in a new key beer_expiry_date_edit
-    changeDateFormat(peopleWhoOweUser);
+  // add in a new key beer_expiry_date_edit
+  changeDateFormat(peopleWhoOweUser);
 
-    // render page
-    res.status(200).render('beerRedeem', {
-      title: '',
-      page: '',
-      desc: '',
-      peopleWhoOweUserArr: peopleWhoOweUser,
-    });
-  };
-  // execute
-  getDataAndRender();
+  // render page
+  res.status(200).render('beerRedeem', {
+    title: '',
+    page: '',
+    desc: '',
+    peopleWhoOweUserArr: peopleWhoOweUser,
+  });
 };
 
 /* ================================================================ BEER TICKETS */
@@ -282,36 +263,31 @@ export const beerBrandNewTicketController = (req, res) => {
 };
 
 // ' /beer/ticket/:id '
-export const beerTicketController = (req, res) => {
+export const beerTicketController = async (req, res) => {
   console.log('Inside ----> beerTicketController');
   // get beer ticket id
   const beerTicketId = req.params.id;
 
-  // getBeerTicketData(beerTicketId).then((data) => { console.log(data); });
   // get data
-  const getDataAndRender = async () => {
-    const beerTicketData = await getBeerTicketData(beerTicketId);
+  const beerTicketData = await getBeerTicketData(beerTicketId);
 
-    // add in a new key beer_expiry_date_edit
-    changeDateFormat([beerTicketData.ticketData]);
+  // add in a new key beer_expiry_date_edit
+  changeDateFormat([beerTicketData.ticketData]);
 
-    // render
-    res.status(200).render('beerTicket', {
-      title: '',
-      page: '',
-      desc: '',
-      beerTicketId,
-      giverName: beerTicketData.giverName,
-      receiverName: beerTicketData.receiverName,
-      beerTicketData: beerTicketData.ticketData,
-    });
-  };
-  // exeute
-  getDataAndRender();
+  // render
+  res.status(200).render('beerTicket', {
+    title: '',
+    page: '',
+    desc: '',
+    beerTicketId,
+    giverName: beerTicketData.giverName,
+    receiverName: beerTicketData.receiverName,
+    beerTicketData: beerTicketData.ticketData,
+  });
 };
 
 /* ================================================================ BEER TICKETS (REDEEM) */
-export const beerTicketRedeemController = (req, res) => {
+export const beerTicketRedeemController = async (req, res) => {
   console.log('Inside ----> beerTicketRedeemController');
   // get userId
   const { userId } = req;
@@ -319,31 +295,27 @@ export const beerTicketRedeemController = (req, res) => {
   const beerTicketId = req.params.id;
   // get currentDate
   const currentDate = moment().format('YYYY-MM-DD');
-  // update data
-  const updateDataAndRender = async () => {
-    // update beer ticket data by including redeemed date and beer status
-    const updateBeerTicketsTable = await pool.query(`UPDATE beer_tickets SET beer_status  = 'redeemed', beer_redeemed_date = '${currentDate}' WHERE id = ${beerTicketId} RETURNING*`);
-    console.log(`Success in updating beer_tickets table ${updateBeerTicketsTable.rows}`);
 
-    // get updated data
-    const beerTicketData = await getBeerTicketData(beerTicketId);
-    const giverUserId = beerTicketData.giverId;
+  // update beer ticket data by including redeemed date and beer status
+  const updateBeerTicketsTable = await pool.query(`UPDATE beer_tickets SET beer_status  = 'redeemed', beer_redeemed_date = '${currentDate}' WHERE id = ${beerTicketId} RETURNING*`);
+  console.log(`Success in updating beer_tickets table ${updateBeerTicketsTable.rows}`);
 
-    // update givers beer wallet to + 1
-    const updateGiversBeerWallet = await pool.query(`UPDATE users SET available_beer_tickets  = available_beer_tickets + 1 WHERE id = ${giverUserId} RETURNING*`);
-    console.log(`Success in updating givers wallet ${updateGiversBeerWallet.rows}`);
+  // get updated data
+  const beerTicketData = await getBeerTicketData(beerTicketId);
+  const giverUserId = beerTicketData.giverId;
 
-    // render
-    res.status(200).render('beerTicketRedeem', {
-      title: '',
-      page: '',
-      desc: '',
-      beerTicketId,
-      giverName: beerTicketData.giverName,
-      receiverName: beerTicketData.receiverName,
-      beerTicketData: beerTicketData.ticketData,
-    });
-  };
-  // exeute
-  updateDataAndRender();
+  // update givers beer wallet to + 1
+  const updateGiversBeerWallet = await pool.query(`UPDATE users SET available_beer_tickets  = available_beer_tickets + 1 WHERE id = ${giverUserId} RETURNING*`);
+  console.log(`Success in updating givers wallet ${updateGiversBeerWallet.rows}`);
+
+  // render
+  res.status(200).render('beerTicketRedeem', {
+    title: '',
+    page: '',
+    desc: '',
+    beerTicketId,
+    giverName: beerTicketData.giverName,
+    receiverName: beerTicketData.receiverName,
+    beerTicketData: beerTicketData.ticketData,
+  });
 };

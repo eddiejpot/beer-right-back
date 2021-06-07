@@ -9,34 +9,59 @@
 </div >
 
 <nav class="nav nav-pills nav-justified fixed-bottom nav-bar-custom">
-
-  <a class="nav-link nav-link-custom" aria-current="page" href="/login">Sign Up / Log In</a>
+  <a class="nav-link nav-link-custom" aria-current="page" href="/login" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="bi bi-question-square"></i><p>About</p></a>
+  <a class="nav-link nav-link-custom" aria-current="page" href="/login"><i class="bi bi-box-arrow-in-right"></i><p>Sign up / Login</p></a>
   
 </nav>
 
-
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header my-model-header-landingpage">
+          <h5 class="modal-title" id="exampleModalLabel">About</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body my-model-body-landingpage">
+          <div class = 'row '>
+            <h6>What is BRB</h6>
+              <ul class='ul-none'>
+                <li>
+                  BRB helps you to keep track of who owes you a beer and vice versa. 
+                </li>
+                <li> 
+                  It's time to mean it when you say... "Let's grab a beer" or "I owe you a pint"
+                </li>
+            </ul>
+          </div>
+          <div class = 'row'>
+            <h6>BRB Guidelines</h6>
+              <ul>
+                <li>A beer owed is only valid for a period of one month.</li>
+                <li>Each user can only owe 5 beers (clear your beer debts people!)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <div class="container-fluid my-container landing-page-container">
 
-
-  <section class = "row  h-1">
+  <section class = "row ">
     <div class="text-center title">
       <p>Welcome to</p>
       <h1 class="">BEER RIGHT BACK</h1>
     </div>
   </section>
 
-  <section class = "row h-25 landing-page-brb-description text-center">
+  <section class = "row landing-page-brb-description text-center">
     <div>
       <p>
-        BRB is an app that helps you to keep track of who owes you a beer and vice versa. 
+        It's time to mean what you say...
       </p>
-      <p>
-        It's time to mean it when you say...
-      </p>
-      <p>"Let's grab a beer"</p>
-      <p>"I owe you a pint"</p>
     </div>
   </section>  
+
 
 </div>
 

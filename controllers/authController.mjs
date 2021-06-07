@@ -1,8 +1,6 @@
 /* ============================================================================ */
 /* =========================================================== IMPORT MODULES = */
 /* ============================================================================ */
-// others
-import moment from 'moment'; // npm install moment
 // hashing
 import jsSHA from 'jssha';
 // database stuff (postgres)
@@ -14,18 +12,11 @@ import pool from '../models/dbConfig.mjs';
 
 import {
   getUsers,
-  getCurrentUserData,
-  getWhoOwesUserData,
-  getUserOwesWhoData,
-  getUsersAndBeerTicketsData,
-  getUsersAndBeerTicketsRedeemedData,
-  getUserFriends,
-  getBeerTicketData,
-} from './sqlQueryFunctions.mjs';
+} from '../utils/sqlQueryFunctions.mjs';
 
 import {
   checkUserLoginDetails,
-} from './authFunctions.mjs';
+} from '../utils/authFunctions.mjs';
 
 /* ============================================================================ */
 /* ======================================================= MIDDLEWARE FUNCTIONS */
@@ -72,53 +63,49 @@ export const loginController = (req, res) => {
   });
 };
 
-export const loginPostController = (req, res) => {
+export const loginPostController = async (req, res) => {
   console.log('Inside ----> loginPostController');
   const { email } = req.body;
   const { password } = req.body;
-  const getDataAndRender = async () => {
-    // get users
-    const allUsers = await getUsers();
-    // perform login check
-    const loginOutcomeObj = checkUserLoginDetails(allUsers, email, password);
+  // get users
+  const allUsers = await getUsers();
+  // perform login check
+  const loginOutcomeObj = checkUserLoginDetails(allUsers, email, password);
 
-    // send cookies and redirect depending on login outcome
-    switch (loginOutcomeObj.loginOutcome) {
-      case 'EMAIL_NOT_EXIST':
-        // send cookies
-        res.cookie('loggedIn', false);
-        // redirect
-        console.log('Email does not exist! Redirecting to login page!');
-        res.redirect('/login');
-        break;
+  // send cookies and redirect depending on login outcome
+  switch (loginOutcomeObj.loginOutcome) {
+    case 'EMAIL_NOT_EXIST':
+      // send cookies
+      res.cookie('loggedIn', false);
+      // redirect
+      console.log('Email does not exist! Redirecting to login page!');
+      res.redirect('/login');
+      break;
 
-      case 'PASSWORD_WRONG':
-        // send cookies
-        res.cookie('loggedIn', false);
-        // redirect
-        console.log('Wrong password! Redirecting to login page!');
-        res.redirect('/login');
-        break;
+    case 'PASSWORD_WRONG':
+      // send cookies
+      res.cookie('loggedIn', false);
+      // redirect
+      console.log('Wrong password! Redirecting to login page!');
+      res.redirect('/login');
+      break;
 
-      case 'CORRECT_LOGIN_DETAILS':
-        // send cookies
-        res.cookie('loggedIn', true);
-        // user id cookie
-        res.cookie('userId', loginOutcomeObj.userData.id);
-        // userName cookie
-        res.cookie('userName', loginOutcomeObj.userData.username);
-        // redirect
-        console.log('Correct Login Details! Redirecting to homepage!');
-        res.redirect('/');
-        break;
+    case 'CORRECT_LOGIN_DETAILS':
+      // send cookies
+      res.cookie('loggedIn', true);
+      // user id cookie
+      res.cookie('userId', loginOutcomeObj.userData.id);
+      // userName cookie
+      res.cookie('userName', loginOutcomeObj.userData.username);
+      // redirect
+      console.log('Correct Login Details! Redirecting to homepage!');
+      res.redirect('/');
+      break;
 
-      default:
-        console.log('This should not need to run');
-        break;
-    }
-  };
-  // execute
-  getDataAndRender();
+    default:
+      console.log('This should not need to run');
+      break;
+  }
 };
 
 // ' /signup '
@@ -131,7 +118,7 @@ export const signUpController = (req, res) => {
   });
 };
 
-export const signUpPostController = (req, res) => {
+export const signUpPostController = async (req, res) => {
   console.log('Inside ----> signUpPostController');
   // get user sign up details
   const { email } = req.body;
@@ -148,25 +135,21 @@ export const signUpPostController = (req, res) => {
   const hashedPassword = shaObj.getHash('HEX');
 
   // Store new user data into db
-  const updateUsersTable = async () => {
-    const dataToInsert = [username, email, hashedPassword, profilePictureFileName, profilePictureAltText, 5];
-    const updateUsersTableQuery = await pool.query('INSERT INTO users (username, email, password, profile_picture_hashed_name, profile_picture_alt_text, available_beer_tickets) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', dataToInsert);
-    console.log(`Success in adding user! ${updateUsersTableQuery.rows}`);
+  const dataToInsert = [username, email, hashedPassword, profilePictureFileName, profilePictureAltText, 5];
+  const updateUsersTableQuery = await pool.query('INSERT INTO users (username, email, password, profile_picture_hashed_name, profile_picture_alt_text, available_beer_tickets) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', dataToInsert);
+  console.log(`Success in adding user! ${updateUsersTableQuery.rows}`);
 
-    const userId = updateUsersTableQuery.rows[0].id;
+  const userId = updateUsersTableQuery.rows[0].id;
 
-    // send cookies
-    // logged in cookie
-    res.cookie('loggedIn', true);
-    // user id cookie
-    res.cookie('userId', userId);
-    // userName cookie
-    res.cookie('userName', username);
-    // redirect to homepage
-    console.log('GOING TO REDIRECT');
-    // Redirect to homepage
-    res.redirect('/');
-  };
-  // execute
-  updateUsersTable();
+  // send cookies
+  // logged in cookie
+  res.cookie('loggedIn', true);
+  // user id cookie
+  res.cookie('userId', userId);
+  // userName cookie
+  res.cookie('userName', username);
+  // redirect to homepage
+  console.log('GOING TO REDIRECT');
+  // Redirect to homepage
+  res.redirect('/');
 };

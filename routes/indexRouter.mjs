@@ -9,7 +9,6 @@ import express from 'express';
 import {
   userDashboardController,
   profileController,
-  // transactionsController,
   transactionsSortController,
   contactsController,
   beerBuyController,
@@ -25,7 +24,7 @@ import {
 /* ============================================================================ */
 import {
   returnCookiesIfLoggedInMiddleware,
-} from '../controllers/authFunctions.mjs';
+} from '../utils/authFunctions.mjs';
 
 /* ============================================================ SET UP ROUTERS = */
 const router = express.Router();
