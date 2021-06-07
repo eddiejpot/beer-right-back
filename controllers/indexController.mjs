@@ -137,7 +137,6 @@ export const transactionsSortController = async (req, res) => {
 
       // combine arr
       dataToRender = [...redeemUserArr, ...redeemFriendsArr];
-      console.log(dataToRender);
       break;
     }
     default:
@@ -300,8 +299,10 @@ export const beerTicketRedeemController = async (req, res) => {
   const { userId } = req;
   // get beer ticket id
   const beerTicketId = req.params.id;
-  // get currentDate
+  // get currentDate for display
   const currentDate = moment().format('YYYY-MM-DD');
+  // get currentDate to put in table
+  const beerTicketRedeemedDateDisplay = moment().format('DD-MM-YYYY');
 
   // update beer ticket data by including redeemed date and beer status
   const updateBeerTicketsTable = await pool.query(`UPDATE beer_tickets SET beer_status  = 'redeemed', beer_redeemed_date = '${currentDate}' WHERE id = ${beerTicketId} RETURNING*`);
@@ -324,5 +325,6 @@ export const beerTicketRedeemController = async (req, res) => {
     giverName: beerTicketData.giverName,
     receiverName: beerTicketData.receiverName,
     beerTicketData: beerTicketData.ticketData,
+    beerTicketRedeemedDateDisplay,
   });
 };
