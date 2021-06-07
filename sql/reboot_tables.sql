@@ -40,4 +40,7 @@ or: \i <PATH_TO_FILE>
 
 // command for local desktop
 \i /home/eddiejpot/rocket-academy/bootcamp/projects/project-2-brb/beer-right-back/sql/reboot_tables.sql
+
+// command for aws
+psql -d brb_app -f /home/ubuntu/ra-projects/project-2-brb/sql/reboot_tables.sql
 */
