@@ -12,7 +12,20 @@ const { Pool } = pg;
 // create separate DB connection configs for production vs non-production environments.
 // ensure our server still works on our local machines.
 let pgConnectionConfigs;
-if (process.env.ENV === 'PRODUCTION') {
+
+// HEROKU
+// test to see if the env var is set. Then we know we are in Heroku
+if (process.env.DATABASE_URL) {
+  // pg will take in the entire value and use it to connect
+  pgConnectionConfigs = {
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false,
+    },
+  };
+
+  // AWS
+} else if (process.env.ENV === 'PRODUCTION') {
   // determine how we connect to the remote Postgres server
   pgConnectionConfigs = {
     user: 'postgres',
@@ -22,6 +35,8 @@ if (process.env.ENV === 'PRODUCTION') {
     database: 'brb_app',
     port: 5432,
   };
+
+// LOCAL
 } else {
   // determine how we connect to the local Postgres server
   pgConnectionConfigs = {
