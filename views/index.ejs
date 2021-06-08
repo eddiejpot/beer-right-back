@@ -1,63 +1,75 @@
-<%- include ('partials/header') %> 
-<%- include ('partials/nav') %> 
+<%- include ('partials/header') %> <%- include ('partials/nav') %>
 
-
-<div class="container-fluid my-container">
-
-  <section class = "row  h-1 d-flex align-items-center">
-    <div class = "col-10">
-      <h6 class="">Welcome back <%= userName %> ! </h6>
+<div class="container-fluid my-container my-container-beer-exchange">
+  <section class="row d-flex align-items-center my-row-beer-exchange-1">
+    <div class="col-10">
+      <h6 class="">Welcome back <%= userName %> !</h6>
     </div>
-    <div class = "col-2">
-      <img src="/<%= currentUserProfilePictureName %>" alt="<%= currentUserProfilePictureAltText %>" class = "user-profile-img-small">
+    <div class="col-2">
+      <img
+        src="/<%= currentUserProfilePictureName %>"
+        alt="<%= currentUserProfilePictureAltText %>"
+        class="user-profile-img-small"
+      />
     </div>
   </section>
 
-  <section class = "row my-row h-25">
+  <section class="row my-row my-row-beer-exchange-2">
     <h2>Beer Wallet 👛</h2>
     <div>
       <p><small>Available beers to give (<%= beerWallet %>)</small></p>
       <!-- If no beers display this -->
       <%if (beerWallet === 0) { %>
-        <div class="alert alert-danger my-alert" role="alert">
-          No more beers. Start clearing your beer debts!
-        </div>
-      <% } else{ %>  
-        <% for (let i = 0; i < beerWallet;i +=1 ) { %>
-          <span class = "beer-wallet-icon">🍺</span>
-        <% }; %>
-      <% } %>
+      <div class="alert alert-danger my-alert" role="alert">
+        No more beers. Start clearing your beer debts!
+      </div>
+      <% } else{ %> <% for (let i = 0; i < beerWallet;i +=1 ) { %>
+      <span class="beer-wallet-icon">🍺</span>
+      <% }; %> <% } %>
     </div>
   </section>
 
-  <section class = "row my-row h-50">
-
+  <section class="row my-row my-row-beer-exchange-3">
     <h2>The Beer Exchange 📈</h2>
-
+    <div class="col">
       <p>Who owes you</p>
-      <section class = "row row-cols-3">
+      <section class="row row-cols-3">
         <% whoOwesUserArr.forEach((e,i) => { %>
-          <div class="col my-col my-col-owe-icon">
-              <img src="/<%= e.profile_picture_hashed_name %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-medium">
-              <p><%=e.username %></p>
-          </div>
+        <div class="col my-col my-col-owe-icon">
+          <img
+            src="/<%= e.profile_picture_hashed_name %>"
+            alt="<%= e.profile_picture_alt_text %>"
+            class="user-profile-img-medium"
+          />
+          <p><%=e.username %></p>
+        </div>
         <% }); %>
       </section>
+    </div>
 
+    <div class="col">
       <p>Who you owe</p>
-      <section class = "row row-cols-3">
+      <section class="row row-cols-3">
         <% userOwesWhoArr.forEach((e,i) => { %>
-          <div class="col my-col my-col-owe-icon">
-              <img src="/<%= e.profile_picture_hashed_name %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-medium">
-              <p><%=e.username %></p>
-          </div>
+        <div class="col my-col my-col-owe-icon">
+          <img
+            src="/<%= e.profile_picture_hashed_name %>"
+            alt="<%= e.profile_picture_alt_text %>"
+            class="user-profile-img-medium"
+          />
+          <p><%=e.username %></p>
+        </div>
         <% }); %>
       </section>
+    </div>
 
-      <a href="/transactions/all"><i class="bi bi-arrow-left-right"></i> <strong>View all Transactions</strong></a>
-      
+    <div class="col my-col-all-transactions">
+      <a href="/transactions/all"
+        ><i class="bi bi-arrow-left-right"></i>
+        <strong>View all Transactions</strong></a
+      >
+    </div>
   </section>
+</div>
 
-</div>  
-
-<%- include ('partials/footer') %> 
+<%- include ('partials/footer') %>

@@ -1,22 +1,18 @@
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
+body,
+html {
   margin: 0;
   padding: 0;
 }
+* {
+  box-sizing: border-box;
+}
 
 body {
-  /* background: linear-gradient(
-    0deg,
-    rgb(255, 245, 99) 0%,
-    rgb(255, 238, 105) 100%
-  ); */
   background-color: rgb(20, 6, 51);
-  height: 100vh;
-  margin: 1rem;
+  padding: 1rem;
   font-family: 'Open Sans', sans-serif;
   color: rgb(32, 32, 32);
+  height: 100vh;
 }
 
 h1 {
@@ -119,14 +115,6 @@ p {
   margin: 4px 2px;
   opacity: 0.6;
   transition: 0.3s;
-}
-
-.beer-wallet-icon {
-  display: inline-block;
-  text-shadow: 2px 2px #646464;
-  font-size: 2rem;
-  padding: 0.2rem;
-  border-radius: 20%;
 }
 
 /* BEER TICKET */
@@ -256,13 +244,13 @@ a.wide {
   margin-bottom: 2rem;
 }
 
-.squad {
+/* .squad {
   margin: 0;
 }
 
 .squad .my-col-owe-icon {
   margin-bottom: 1rem;
-}
+} */
 
 /*TRANSACTIONS PAGE*/
 .transactions-container h1 {
@@ -428,4 +416,55 @@ a.wide {
   background-color: rgb(255, 219, 60);
   border: none;
   color: rgb(36, 36, 36);
+}
+
+/* BEER EXCHANGE */
+
+.my-container-beer-exchange {
+  height: 100%;
+}
+
+.my-row-beer-exchange-1 {
+  height: 5%;
+}
+.my-row-beer-exchange-2 {
+  height: 20%;
+}
+
+.my-row-beer-exchange-3 {
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.my-row-beer-exchange-3 .col {
+  margin-top: 1rem;
+}
+
+.my-col-all-transactions {
+  display: flex;
+  align-items: flex-end;
+}
+
+.my-col-all-transactions a {
+  display: inline-block;
+}
+
+.my-row-beer-exchange-3 .my-col-owe-icon {
+  line-height: 0;
+  margin: 0.8rem 0 0 0;
+}
+
+.my-row-beer-exchange-3 .my-col-owe-icon p {
+  margin-top: 4px;
+}
+
+.beer-wallet-icon {
+  display: inline-block;
+  text-shadow: 2px 2px #646464;
+  font-size: 2rem;
+  padding: 0.2rem;
+  border-radius: 20%;
 }
