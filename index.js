@@ -7,22 +7,24 @@ import express from 'express';
 import methodOverride from 'method-override'; // npm install method-override
 
 // cookies
-import cookieParser from 'cookie-parser'; // npm install cookie-parser
+import cookieParser from 'cookie-parser';
+import indexRouter from './routes/indexRouter.mjs';
+import authRouter from './routes/authRouter.mjs'; // npm install cookie-parser
 
 /* ============================================================================ */
 /* =========================================================== IMPORT ROUTERS = */
 /* ============================================================================ */
 console.log('LOOKING FOR ROUTHERS');
-import indexRouter from './routes/indexRouter.mjs';
-import authRouter from './routes/authRouter.mjs';
 /* ============================================================================ */
 /* ============================================================== INIT SERVER = */
 /* ============================================================================ */
 
 // Initialise Express
 const app = express();
-// activate port
-const PORT = process.argv[2] || 3004;
+// activate port (for AWS)
+// const PORT = process.argv[2] || 3004;
+// activate port (for HEROKU)
+const PORT = process.env.PORT || 3004;
 
 // Override POST requests with query param ?_method=PUT to be PUT requests
 app.use(methodOverride('_method'));
