@@ -137,6 +137,8 @@ export const signUpPostController = async (req, res) => {
 
   console.log('BUCKET STUFF');
   console.log(s3BucketObjects);
+  console.log('SEE WHAT IS IN OWENER KEY');
+  console.log(s3BucketObjects[0].Owner);
 
   // // initialise the SHA object
   // const shaObj = new jsSHA('SHA-512', 'TEXT', { encoding: 'UTF8' });
