@@ -124,40 +124,36 @@ export const signUpPostController = async (req, res) => {
   const { email } = req.body;
   const { password } = req.body;
   const { username } = req.body;
-  const { s3BucketObjects } = req;
 
+  // get profile picture details
   const profilePictureFileUrl = req.file.location;
+  const profilePictureFileName = req.file.key;
   const profilePictureAltText = `${username}-${req.file.originalname}`;
 
-  console.log('FORM DATA!');
-  console.log(`EMAIL : ${email} `);
-  console.log(`PW : ${password} `);
-  console.log(`USERNAME : ${username} `);
-  console.log(`FILE URL : ${profilePictureFileUrl} `);
+  // HASH PASSWORD
+  // initialise the SHA object
+  const shaObj = new jsSHA('SHA-512', 'TEXT', { encoding: 'UTF8' });
+  // input the password from the request to the SHA object
+  shaObj.update(password);
+  // get the hashed password as output from the SHA object
+  const hashedPassword = shaObj.getHash('HEX');
 
-  // // initialise the SHA object
-  // const shaObj = new jsSHA('SHA-512', 'TEXT', { encoding: 'UTF8' });
-  // // input the password from the request to the SHA object
-  // shaObj.update(password);
-  // // get the hashed password as output from the SHA object
-  // const hashedPassword = shaObj.getHash('HEX');
+  // Store new user data into db
+  const dataToInsert = [username, email, hashedPassword, profilePictureFileUrl, profilePictureFileName, profilePictureAltText, 5];
+  const updateUsersTableQuery = await pool.query('INSERT INTO users (username, email, password, profile_picture_url, profile_picture_hashed_name, profile_picture_alt_text, available_beer_tickets) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *', dataToInsert);
+  console.log(`Success in adding user! ${updateUsersTableQuery.rows}`);
 
-  // // Store new user data into db
-  // const dataToInsert = [username, email, hashedPassword, profilePictureFileName, profilePictureAltText, 5];
-  // const updateUsersTableQuery = await pool.query('INSERT INTO users (username, email, password, profile_picture_hashed_name, profile_picture_alt_text, available_beer_tickets) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', dataToInsert);
-  // console.log(`Success in adding user! ${updateUsersTableQuery.rows}`);
+  const userId = updateUsersTableQuery.rows[0].id;
 
-  // const userId = updateUsersTableQuery.rows[0].id;
-
-  // // send cookies
-  // // logged in cookie
-  // res.cookie('loggedIn', true);
-  // // user id cookie
-  // res.cookie('userId', userId);
-  // // userName cookie
-  // res.cookie('userName', username);
-  // // redirect to homepage
-  // console.log('GOING TO REDIRECT');
-  // // Redirect to homepage
-  // res.redirect('/');
+  // send cookies
+  // logged in cookie
+  res.cookie('loggedIn', true);
+  // user id cookie
+  res.cookie('userId', userId);
+  // userName cookie
+  res.cookie('userName', username);
+  // redirect to homepage
+  console.log('GOING TO REDIRECT');
+  // Redirect to homepage
+  res.redirect('/');
 };

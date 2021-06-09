@@ -48,7 +48,7 @@ export const userDashboardController = async (req, res) => {
   // render page
   res.status(200).render('index', {
     userName: currentUserData.username.toUpperCase(),
-    currentUserProfilePictureName: currentUserData.profile_picture_hashed_name,
+    currentUserProfilePictureUrl: currentUserData.profile_picture_url,
     currentUserProfilePictureAltText: currentUserData.profile_picture_alt_text,
     beerWallet: currentUserData.available_beer_tickets,
     whoOwesUserArr,
