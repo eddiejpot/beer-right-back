@@ -80,4 +80,7 @@ or: \i <PATH_TO_FILE>
 
 // command for aws
 psql -d brb_app -f /home/ubuntu/ra-projects/project-2-brb/sql/seed.sql
+
+// command for heroku
+heroku pg:psql < sql/seed.sql
 */
