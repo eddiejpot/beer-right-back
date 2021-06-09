@@ -124,8 +124,11 @@ export const signUpPostController = async (req, res) => {
   const { email } = req.body;
   const { password } = req.body;
   const { username } = req.body;
-  const profilePictureFileName = req.file.filename;
-  const profilePictureAltText = `${username}-${req.file.originalname}`;
+  // const profilePictureFileName = req.file.filename;
+  // const profilePictureAltText = `${username}-${req.file.originalname}`;
+  // user profile picture stored in cookie
+  const userProfilePictureUrl = req.location;
+  res.cookie('userProfilePic', userProfilePictureUrl);
 
   // initialise the SHA object
   const shaObj = new jsSHA('SHA-512', 'TEXT', { encoding: 'UTF8' });
