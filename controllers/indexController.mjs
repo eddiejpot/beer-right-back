@@ -39,15 +39,11 @@ export const userDashboardController = async (req, res) => {
   console.log('Inside ----> userDashboardController');
   // get userId
   const { userId } = req;
-  console.log('DO WE HAVE USERID?');
-  console.log(userId);
+
   // get data needed
   const currentUserData = await getCurrentUserData(userId);
   const whoOwesUserArr = await getWhoOwesUserData(userId);
   const userOwesWhoArr = await getUserOwesWhoData(userId);
-
-  console.log('DO WE HAVE CURRENT USER DATA?');
-  console.log(currentUserData);
 
   // render page
   res.status(200).render('index', {
@@ -71,7 +67,7 @@ export const profileController = async (req, res) => {
   // render page
   res.status(200).render('profile', {
     userName: currentUserData.username.toUpperCase(),
-    currentUserProfilePictureName: currentUserData.profile_picture_hashed_name,
+    currentUserProfilePictureUrl: currentUserData.profile_picture_url,
     currentUserProfilePictureAltText: currentUserData.profile_picture_alt_text,
     beerWallet: currentUserData.available_beer_tickets,
   });

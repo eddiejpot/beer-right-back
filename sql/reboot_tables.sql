@@ -10,9 +10,9 @@ CREATE TABLE users (
   username TEXT,
   email TEXT,
   password TEXT,
+  profile_picture_url TEXT,
   profile_picture_hashed_name TEXT,
   profile_picture_alt_text TEXT,
-  profile_picture_url TEXT,
   available_beer_tickets INTEGER
 );
 

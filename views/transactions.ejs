@@ -34,7 +34,7 @@
       <% if (sortType === 'all') { %>
         <div class = "transactions-list row">
           <div class = "col-2">
-              <img src="/<%= e.profile_picture_hashed_name %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-small">
+              <img src="<%= e.profile_picture_url %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-small">
           </div>
           <div class = "col-3">
               <h5 class="mb-1"><%= e.username %></h5>
@@ -59,7 +59,7 @@
       <% if (sortType === 'in') { %>
         <div class = "transactions-list row">
           <div class = "col-2">
-              <img src="/<%= e.profile_picture_hashed_name %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-small">
+              <img src="<%= e.profile_picture_url %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-small">
           </div>
           <div class = "col-3">
               <h5 class="mb-1"><%= e.username %></h5>
@@ -78,7 +78,7 @@
       <% if (sortType === 'out') { %>
         <div class = "transactions-list row">
           <div class = "col-2">
-              <img src="/<%= e.profile_picture_hashed_name %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-small">
+              <img src="<%= e.profile_picture_url %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-small">
           </div>
           <div class = "col-3">
               <h5 class="mb-1"><%= e.username %></h5>
@@ -97,7 +97,7 @@
       <% if (sortType === 'done') { %>
         <div class = "transactions-list-done row pattern-dots-sm">
           <div class = "col-2">
-              <img src="/<%= e.profile_picture_hashed_name %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-small">
+              <img src="<%= e.profile_picture_url %>" alt="<%= e.profile_picture_alt_text %>" class = "user-profile-img-small">
           </div>
           <div class = "col-3">
               <h5 class="mb-1"><%= e.username %></h5>
