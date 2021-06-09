@@ -49,7 +49,6 @@ export const userDashboardController = async (req, res) => {
   console.log('DO WE HAVE CURRENT USER DATA?');
   console.log(currentUserData);
 
-  res.send('Stop here for now');
   // render page
   res.status(200).render('index', {
     userName: currentUserData.username.toUpperCase(),
