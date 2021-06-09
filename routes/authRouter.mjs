@@ -46,6 +46,9 @@ const multerUpload = multer({
     key: (request, file, callback) => {
       callback(null, Date.now().toString());
     },
+    location: (request) => {
+      request.fileUrl = request;
+    },
   }),
 });
 
