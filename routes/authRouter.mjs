@@ -28,10 +28,6 @@ import {
   returnCookiesIfLoggedInMiddleware,
 } from '../utils/authFunctions.mjs';
 
-import {
-  getS3BucketObjects,
-} from '../utils/s3Functions.mjs';
-
 // configure libraries
 const s3 = new aws.S3({
   accessKeyId: process.env.ACCESSKEYID,
@@ -72,7 +68,7 @@ router.get('/login', loginController);
 router.post('/login', loginPostController);
 
 router.get('/signup', signUpController);
-router.post('/signup', multerUpload.single('profilePictureData'), getS3BucketObjects(awsS3BucketName), signUpPostController);
+router.post('/signup', multerUpload.single('profilePictureData'), signUpPostController);
 
 // routes for cookie
 router.all('*', returnCookiesIfLoggedInMiddleware, authController);

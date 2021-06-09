@@ -126,24 +126,14 @@ export const signUpPostController = async (req, res) => {
   const { username } = req.body;
   const { s3BucketObjects } = req;
 
-  const profilePictureFileName = req.file.filename;
+  const profilePictureFileUrl = req.file.location;
   const profilePictureAltText = `${username}-${req.file.originalname}`;
 
   console.log('FORM DATA!');
   console.log(`EMAIL : ${email} `);
   console.log(`PW : ${password} `);
   console.log(`USERNAME : ${username} `);
-  console.log(`FILENAME : ${profilePictureFileName} `);
-
-  // see what is in request
-  console.log('WHAT IS IN REQ');
-  console.log(req);
-  console.log('DOES req.files exist????????????');
-  console.log(req.files);
-  // console.log('BUCKET STUFF');
-  // console.log(s3BucketObjects);
-  // console.log('SEE WHAT IS IN OWENER KEY');
-  // console.log(s3BucketObjects[0].Owner);
+  console.log(`FILE URL : ${profilePictureFileUrl} `);
 
   // // initialise the SHA object
   // const shaObj = new jsSHA('SHA-512', 'TEXT', { encoding: 'UTF8' });
