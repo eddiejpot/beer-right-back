@@ -22,6 +22,8 @@ export const getS3BucketObjects = (bucketName) => (req, res, next) => {
       console.log('Error in obtaining a list of ojects in s3 bucket', err);
     } else {
       req.s3BucketObjects = data;
+      console.log('IN THE S3 FUNCTION !!!!!!!!!!!!!!!');
+      console.log(data);
     }
   });
   next();
