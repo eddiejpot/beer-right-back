@@ -28,6 +28,10 @@ import {
   returnCookiesIfLoggedInMiddleware,
 } from '../utils/authFunctions.mjs';
 
+import {
+  getS3BucketObjects,
+} from '../utils/s3Functions.mjs';
+
 // configure libraries
 const s3 = new aws.S3({
   accessKeyId: process.env.ACCESSKEYID,
@@ -35,10 +39,12 @@ const s3 = new aws.S3({
 });
 
 // congifure multer upload (muilter with aws s3)
+const awsS3BucketName = 'beer-right-back-01';
+
 const multerUpload = multer({
   storage: multerS3({
     s3,
-    bucket: 'beer-right-back-01',
+    bucket: awsS3BucketName,
     acl: 'public-read',
     metadata: (request, file, callback) => {
       callback(null, { fieldName: file.fieldname });
@@ -51,7 +57,6 @@ const multerUpload = multer({
     },
   }),
 });
-
 // congifure multer upload (only on local)
 // set the name of the upload directory a.k.a image uploads go here
 // const multerUpload = multer({ dest: 'uploads/' });
@@ -67,7 +72,7 @@ router.get('/login', loginController);
 router.post('/login', loginPostController);
 
 router.get('/signup', signUpController);
-router.post('/signup', multerUpload.single('profilePictureData'), signUpPostController);
+router.post('/signup', multerUpload.single('profilePictureData'), getS3BucketObjects(awsS3BucketName), signUpPostController);
 
 // routes for cookie
 router.all('*', returnCookiesIfLoggedInMiddleware, authController);

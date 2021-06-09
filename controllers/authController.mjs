@@ -124,41 +124,41 @@ export const signUpPostController = async (req, res) => {
   const { email } = req.body;
   const { password } = req.body;
   const { username } = req.body;
+  const { s3BucketObjects } = req;
+
   const profilePictureFileName = req.file.filename;
   const profilePictureAltText = `${username}-${req.file.originalname}`;
-  // user profile picture stored in cookie
-  console.log('HELLLLOOOO!');
-  console.log('profilePictureFileName');
-  console.log(profilePictureFileName);
-  console.log('profilePictureAltText');
-  console.log(profilePictureAltText);
-  console.log('fileUrl');
-  const { fileUrl } = req;
-  console.log(fileUrl);
 
-  // initialise the SHA object
-  const shaObj = new jsSHA('SHA-512', 'TEXT', { encoding: 'UTF8' });
-  // input the password from the request to the SHA object
-  shaObj.update(password);
-  // get the hashed password as output from the SHA object
-  const hashedPassword = shaObj.getHash('HEX');
+  console.log('FORM DATA!');
+  console.log(`EMAIL : ${email} `);
+  console.log(`PW : ${password} `);
+  console.log(`USERNAME : ${username} `);
+  console.log('BUCKET STUFF');
+  console.log(s3BucketObjects);
 
-  // Store new user data into db
-  const dataToInsert = [username, email, hashedPassword, profilePictureFileName, profilePictureAltText, 5];
-  const updateUsersTableQuery = await pool.query('INSERT INTO users (username, email, password, profile_picture_hashed_name, profile_picture_alt_text, available_beer_tickets) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', dataToInsert);
-  console.log(`Success in adding user! ${updateUsersTableQuery.rows}`);
+  // // initialise the SHA object
+  // const shaObj = new jsSHA('SHA-512', 'TEXT', { encoding: 'UTF8' });
+  // // input the password from the request to the SHA object
+  // shaObj.update(password);
+  // // get the hashed password as output from the SHA object
+  // const hashedPassword = shaObj.getHash('HEX');
 
-  const userId = updateUsersTableQuery.rows[0].id;
+  // // Store new user data into db
+  // const dataToInsert = [username, email, hashedPassword, profilePictureFileName, profilePictureAltText, 5];
+  // const updateUsersTableQuery = await pool.query('INSERT INTO users (username, email, password, profile_picture_hashed_name, profile_picture_alt_text, available_beer_tickets) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *', dataToInsert);
+  // console.log(`Success in adding user! ${updateUsersTableQuery.rows}`);
 
-  // send cookies
-  // logged in cookie
-  res.cookie('loggedIn', true);
-  // user id cookie
-  res.cookie('userId', userId);
-  // userName cookie
-  res.cookie('userName', username);
-  // redirect to homepage
-  console.log('GOING TO REDIRECT');
-  // Redirect to homepage
-  res.redirect('/');
+  // const userId = updateUsersTableQuery.rows[0].id;
+
+  // // send cookies
+  // // logged in cookie
+  // res.cookie('loggedIn', true);
+  // // user id cookie
+  // res.cookie('userId', userId);
+  // // userName cookie
+  // res.cookie('userName', username);
+  // // redirect to homepage
+  // console.log('GOING TO REDIRECT');
+  // // Redirect to homepage
+  // res.redirect('/');
 };
