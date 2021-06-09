@@ -133,6 +133,8 @@ export const signUpPostController = async (req, res) => {
   console.log(`EMAIL : ${email} `);
   console.log(`PW : ${password} `);
   console.log(`USERNAME : ${username} `);
+  console.log(`FILENAME : ${profilePictureFileName} `);
+
   console.log('BUCKET STUFF');
   console.log(s3BucketObjects);
 
