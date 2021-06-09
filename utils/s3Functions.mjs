@@ -24,9 +24,9 @@ export const getS3BucketObjects = (bucketName) => (req, res, next) => {
       req.s3BucketObjects = data;
       console.log('IN THE S3 FUNCTION !!!!!!!!!!!!!!!');
       console.log(data);
+      next();
     }
   });
-  next();
 };
 
 // // eslint-disable-next-line import/prefer-default-export
