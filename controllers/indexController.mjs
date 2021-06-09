@@ -50,15 +50,15 @@ export const userDashboardController = async (req, res) => {
   console.log(currentUserData);
 
   res.send('Stop here for now');
-  // // render page
-  // res.status(200).render('index', {
-  //   userName: currentUserData.username.toUpperCase(),
-  //   currentUserProfilePictureUrl: currentUserData.profile_picture_url,
-  //   currentUserProfilePictureAltText: currentUserData.profile_picture_alt_text,
-  //   beerWallet: currentUserData.available_beer_tickets,
-  //   whoOwesUserArr,
-  //   userOwesWhoArr,
-  // });
+  // render page
+  res.status(200).render('index', {
+    userName: currentUserData.username.toUpperCase(),
+    currentUserProfilePictureUrl: currentUserData.profile_picture_url,
+    currentUserProfilePictureAltText: currentUserData.profile_picture_alt_text,
+    beerWallet: currentUserData.available_beer_tickets,
+    whoOwesUserArr,
+    userOwesWhoArr,
+  });
 };
 
 /* ================================================================ USER PROFILE */
