@@ -21,6 +21,12 @@ User Story
 
 ## ✋ How the app works
 
+**VIDEO TUTORIAL (NON-TECHNICAL)**
+
+<figure class="video_container">
+  <iframe src="https://youtu.be/466AbXvMdzc" frameborder="0" allowfullscreen="true"> </iframe>
+</figure>
+
 **TO BUY/OWE A BEER**
 
 - Once you buy a beer for a friend. A ticket/recipe will be issued.
