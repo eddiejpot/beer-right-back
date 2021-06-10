@@ -22,10 +22,8 @@ User Story
 ## ✋ How the app works
 
 **VIDEO TUTORIAL (NON-TECHNICAL)**
-
-<figure class="video_container">
-  <iframe src="https://youtu.be/466AbXvMdzc" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
+[![DemoVideo](/readme_images/eddiejpot_brb_app_dp.jpg)](https://youtu.be/466AbXvMdzc 'DemoVideo')
+_Click the image to direct to video_
 
 **TO BUY/OWE A BEER**
 
