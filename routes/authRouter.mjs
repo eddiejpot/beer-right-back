@@ -53,6 +53,7 @@ const multerUpload = multer({
 /* ============================================================ SET UP ROUTERS = */
 const router = express.Router();
 
+// initialize controller
 const authController = initAuthController();
 
 // routes
