@@ -6,19 +6,7 @@ import express from 'express';
 /* ============================================================================ */
 /* ======================================================= IMPORT CONTROLLERS = */
 /* ============================================================================ */
-import {
-  userDashboardController,
-  profileController,
-  transactionsSortController,
-  contactsController,
-  beerBuyController,
-  beerBuyPostController,
-  beerRedeemController,
-  beerBrandNewTicketController,
-  beerTicketController,
-  beerTicketRedeemController,
-  logoutController,
-} from '../controllers/indexController.mjs';
+import initIndexController from '../controllers/indexController.mjs';
 
 /* ============================================================================ */
 /* ======================================================= MIDDLEWARE FUNCTIONS */
@@ -30,30 +18,30 @@ import {
 /* ============================================================ SET UP ROUTERS = */
 const router = express.Router();
 
-// cookies
+// initialize controller
+const indexController = initIndexController();
 
 // routes
-router.get('/', returnCookiesIfLoggedInMiddleware, userDashboardController);
+router.get('/', returnCookiesIfLoggedInMiddleware, indexController.beerExchangePage);
 
-router.get('/profile', profileController);
+router.get('/profile', indexController.profilePage);
 
-// router.get('/transactions', transactionsController);
-router.get('/transactions/:sort', transactionsSortController);
+router.get('/contacts', indexController.contactsPage);
 
-router.get('/contacts', contactsController);
+router.get('/logout', indexController.logOut);
 
-router.get('/beer/buy', beerBuyController);
-router.post('/beer/buy', beerBuyPostController);
+router.get('/transactions/:sort', indexController.transactionsPage);
 
-router.get('/beer/redeem', beerRedeemController);
+router.get('/beer/buy', indexController.beerCreateForm);
+router.post('/beer/buy', indexController.beerCreate);
 
-router.get('/beer/brand-new-ticket/:id', beerBrandNewTicketController);
+router.get('/beer/redeem', indexController.beerRedeemPage);
 
-router.get('/beer/ticket/:id', beerTicketController);
+router.get('/beer/brand-new-ticket/:id', indexController.newBeerTicketPage);
 
-router.get('/beer/ticket/redeem=true/:id', beerTicketRedeemController);
+router.get('/beer/ticket/:id', indexController.beerTicketPage);
 
-router.get('/logout', logoutController);
+router.get('/beer/ticket/redeem=true/:id', indexController.redeemedBeerTicketPage);
 
 /* ============================================================================ */
 /* =========================================================== EXPORT ROUTER = */
